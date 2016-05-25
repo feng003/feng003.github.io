@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>JavaScript作用域（一） - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#You Don't Know JS">You Don't Know JS</a>&nbsp;»&nbsp;JavaScript作用域（一）</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">JavaScript作用域（一）</div>
+  <div id="content">
+  <h3 id="javascript">”JavaScript中的函数运行在它们被定义的作用域里,而不是它们被执行的作用域里.”</h3>
+<blockquote>
+<h4 id="_1">一套设计良好的规则来存储变量，并且之后可以方便的找到这些变量。这套规则被称为作用域。</h4>
+</blockquote>
+<p>一、传统的编译：</p>
+<div class="hlcode"><pre><span class="mi">1</span><span class="err">、</span><span class="n">Tokenizing</span><span class="o">/</span><span class="n">Lexing</span> <span class="err">分词</span><span class="o">/</span><span class="err">词法分析</span>
+<span class="mi">2</span><span class="err">、</span><span class="n">Parsing</span> <span class="err">解析</span><span class="o">/</span><span class="err">语法分析</span>
+<span class="mi">3</span><span class="err">、代码生成</span>
+</pre></div>
+
+
+<p>二、LHS/RHS  赋值操作的左侧 和 右侧</p>
+<div class="hlcode"><pre>  <span class="nx">RHS</span><span class="err">查询与简单地查找某个变量的值别无二致，而</span><span class="nx">LHS</span><span class="err">查询则是试图找到变量的容器本身，从而可以对其赋值。</span>
+
+  <span class="nx">RHS</span><span class="err">理解成</span> <span class="nx">retrieve</span> <span class="nx">his</span> <span class="nx">source</span> <span class="nx">value</span> <span class="p">(</span><span class="err">取到他的源值</span><span class="p">)</span>
+
+  <span class="err">赋值操作的目标是谁（</span><span class="nx">LHS</span><span class="err">）</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="err">谁是赋值操作的源头（</span><span class="nx">RHS</span><span class="err">）</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+
+  <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+  <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="c1">// 2</span>
+  <span class="p">}</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+
+
+<p>三、作用域嵌套</p>
+<div class="hlcode"><pre><span class="err">遍历嵌套作用域链的规则：引擎从当前的执行作用域开始查找变量，如果找不到就向上一级继续查找。当抵达最外层的全局作用域时，无论找到还是没有找到，查找过程都会停止。</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="o">+</span><span class="nx">b</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

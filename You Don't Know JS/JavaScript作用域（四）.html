@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>JavaScript作用域（四） - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#You Don't Know JS">You Don't Know JS</a>&nbsp;»&nbsp;JavaScript作用域（四）</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">JavaScript作用域（四）</div>
+  <div id="content">
+  <h3 id="_1">提升 变量和函数声明从他们在代码中出现的位置被“移动”到最上面。</h3>
+<blockquote>
+<p>1、编译器</p>
+</blockquote>
+<p>foo函数的声明被提升</p>
+<div class="hlcode"><pre><span class="nx">foo</span><span class="p">();</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+<span class="p">{</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+     <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>函数表达式却不会被提升</p>
+<div class="hlcode"><pre><span class="nx">foo</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){}</span>
+</pre></div>
+
+
+<blockquote>
+<p>2、函数优先:函数声明 会被提现到 普通变量之前</p>
+</blockquote>
+<div class="hlcode"><pre><span class="nx">foo</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
