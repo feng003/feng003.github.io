@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>javascript scope - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#javascript">javascript</a>&nbsp;»&nbsp;javascript scope</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">javascript scope</div>
+  <div id="content">
+  <blockquote>
+<p>javascript 中 无块级作用域</p>
+</blockquote>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="c1">//console.log(name);</span>
+    <span class="k">if</span><span class="p">(</span><span class="mi">1</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span><span class="s2">&quot;names&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">main</span><span class="p">();</span>
+</pre></div>
+
+
+<blockquote>
+<p>javascript 采用函数作用域</p>
+</blockquote>
+<h6 id="javascript">在JavaScript中每个函数作为一个作用域，在外部无法访问内部作用域中的变量。</h6>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">main</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span><span class="s2">&quot;values&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">main</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>   <span class="c1">//     报错：Uncaught ReferenceError: value is not defined</span>
+</pre></div>
+
+
+<blockquote>
+<p>javascript 的作用域链,根据作用域链从内到外的优先级寻找，如果内层没有就逐步向上找，直到没找到抛出异常。</p>
+</blockquote>
+<h6 id="javascript_1">由于JavaScript中的每个函数作为一个作用域，如果出现函数嵌套函数，则就会出现作用域链。</h6>
+<p><img alt="image" src="./image/scope.png" /></p>
+<blockquote>
+<p>javascript 的作用域链执行前已创建</p>
+</blockquote>
+<p>example 1 作用域链：</p>
+<div class="hlcode"><pre><span class="err">全局作用域</span> <span class="o">-&gt;</span> <span class="nx">Func</span><span class="err">函数作用域</span> <span class="o">-&gt;</span> <span class="nx">inner</span><span class="err">函数作用域</span>
+
+<span class="nx">xo</span> <span class="o">=</span> <span class="s2">&quot;alex&quot;</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">func</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">xo</span> <span class="o">=</span> <span class="s2">&quot;eirc&quot;</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">inner</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">xo</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">xo</span> <span class="o">=</span> <span class="s2">&quot;seven&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">inner</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">func</span><span class="p">();</span>
+<span class="nx">ret</span><span class="p">();</span>  <span class="c1">// seven</span>
+</pre></div>
+
+
+<p>example 2 两条作用域链：</p>
+<div class="hlcode"><pre><span class="err">全局作用域</span> <span class="o">-&gt;</span> <span class="nx">bar</span><span class="err">函数作用域</span>
+<span class="err">全局作用域</span> <span class="o">-&gt;</span> <span class="nx">func</span><span class="err">函数作用域</span>
+
+<span class="nx">xo</span> <span class="o">=</span> <span class="s2">&quot;alex&quot;</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">bar</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">xo</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">func</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">xo</span> <span class="o">=</span> <span class="s2">&quot;seven&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span><span class="nx">func</span><span class="p">();</span>
+<span class="nx">ret</span><span class="p">();</span>
+</pre></div>
+
+
+<blockquote>
+<p>声明提前</p>
+</blockquote>
+<div class="hlcode"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">xo</span><span class="p">);</span> <span class="c1">// Uncaught ReferenceError: xo is not defined</span>
+
+<span class="kd">var</span> <span class="nx">xo</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">xo</span><span class="p">)</span> <span class="c1">//输出：undefined</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">xo</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">xo</span> <span class="o">=</span> <span class="s2">&quot;seven&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">foo</span><span class="p">();</span> <span class="c1">//输出：undefined</span>
+</pre></div>
+
+
+<h6 id="javascriptvar-xoundefined">JavaScript的函数在被执行之前，会将其中的变量全部声明，而不赋值。所以，相当于上述实例中，函数在“预编译”时，已经执行了var xo；所以上述代码中输出的是undefined。</h6>
+<p><a href="http://3060674.blog.51cto.com/3050674/1812390">参考地址</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

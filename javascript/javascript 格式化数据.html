@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>javascript format - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#javascript">javascript</a>&nbsp;»&nbsp;javascript format</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">javascript format</div>
+  <div id="content">
+  <h4 id="numberobjecttofixednum-tofixed-number">NumberObject.toFixed(num) toFixed() 方法可把 Number 四舍五入为指定小数位数的数字。</h4>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">num</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Number</span><span class="p">(</span><span class="mf">13.37</span><span class="p">);</span>
+<span class="n">num</span><span class="p">.</span><span class="n">toFixed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+
+
+<h4 id="numberobjecttostringradix-tostring-number">NumberObject.toString(radix)  toString() 方法可把一个 Number 对象转换为一个字符串，并返回结果。</h4>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">number</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Number</span><span class="p">(</span><span class="mi">1337</span><span class="p">);</span>
+<span class="n">number</span><span class="p">.</span><span class="n">toString</span><span class="p">();</span>
+</pre></div>
+
+
+<h4 id="js">转换函数、强制类型转换、利用js变量弱类型转换。</h4>
+<div class="hlcode"><pre>    <span class="mi">1</span><span class="err">、</span><span class="n">parseInt</span><span class="p">()</span><span class="err">和</span><span class="n">parseFloat</span><span class="p">()</span><span class="err">，前者把值转换成整数，后者把值转换成浮点数。只有对</span><span class="n">String</span><span class="err">类型调用这些方法，这两个函数才能正确运行；对其他类型返回的都是</span><span class="n">NaN</span><span class="p">(</span><span class="n">Not</span> <span class="n">a</span> <span class="n">Number</span><span class="p">)</span><span class="err">。</span>
+    <span class="mi">2</span><span class="err">、</span><span class="n">Boolean</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="n">Number</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="n">String</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="mi">3</span><span class="err">、</span><span class="n">js</span><span class="err">的弱类型的特点，进行了算术运算，实现了字符串到数字的类型转换。</span>
+</pre></div>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
