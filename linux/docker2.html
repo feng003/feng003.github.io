@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>docker(2): build own image  - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#linux">linux</a>&nbsp;»&nbsp;docker(2): build own image </div>
+</div>
+<div class="clearfix"></div>
+<div id="title">docker(2): build own image </div>
+  <div id="content">
+  <blockquote>
+<p>Write Dockerfile</p>
+</blockquote>
+<h6 id="write-a-dockerfile">Write a Dockerfile</h6>
+<div class="hlcode"><pre><span class="n">mkdir</span> <span class="n">dockerbuild</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">dockerbuild</span>
+<span class="n">sudo</span> <span class="n">vim</span> <span class="n">Dockerfile</span>
+
+<span class="n">FROM</span> <span class="n">docker</span><span class="o">/</span><span class="n">whalesay</span><span class="o">:</span><span class="n">latest</span>
+<span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">-</span><span class="n">y</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">fortunes</span>
+<span class="n">CMD</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">games</span><span class="o">/</span><span class="n">fortune</span> <span class="o">-</span><span class="n">a</span> <span class="o">|</span> <span class="n">cowsay</span>
+</pre></div>
+
+
+<h6 id="build-an-image-from-your-dockerfile">Build an image from your Dockerfile</h6>
+<div class="hlcode"><pre><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">feng003</span><span class="o">/</span><span class="n">test</span> <span class="p">.</span> <span class="p">(</span><span class="err">注意最后有个点</span> <span class="p">.)</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="n">feng003</span><span class="o">/</span><span class="n">test</span>
+</pre></div>
+
+
+<blockquote>
+<p>Delete images</p>
+</blockquote>
+<h6 id="container">停止所有的  container</h6>
+<div class="hlcode"><pre><span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">q</span>        <span class="c1">// 994ecc0d5205</span>
+<span class="n">sudo</span> <span class="n">docker</span> <span class="n">stop</span> <span class="mi">994</span><span class="n">ecc0d5205</span>
+</pre></div>
+
+
+<h6 id="imagesimage-id">删除 images，通过image 的id来确定删除</h6>
+<div class="hlcode"><pre><span class="n">docker</span> <span class="n">images</span>
+<span class="n">sudo</span> <span class="n">docker</span> <span class="n">rmi</span> <span class="o">&lt;</span><span class="n">image</span> <span class="n">id</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p><a href="https://docs.docker.com/engine/getstarted/step_four/#step-1-write-a-dockerfile">参考地址</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
