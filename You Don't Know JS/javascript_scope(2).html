@@ -5,7 +5,7 @@
         <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
-        <title>JavaScript作用域（二） - wiki</title>
+        <title>javascript scope(2) - wiki</title>
         <meta name="keywords" content="个人wiki"/>
         <meta name="description" content="个人wiki"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,10 +15,10 @@
         <div id="container">
             
 <div id="header">
-  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#javascript">javascript</a>&nbsp;»&nbsp;<a href="/#javascript-You Don't Know JS">You Don't Know JS</a>&nbsp;»&nbsp;JavaScript作用域（二）</div>
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#You Don't Know JS">You Don't Know JS</a>&nbsp;»&nbsp;javascript scope(2)</div>
 </div>
 <div class="clearfix"></div>
-<div id="title">JavaScript作用域（二）</div>
+<div id="title">javascript scope(2)</div>
   <div id="content">
   <h3 id="_1">如何管理引擎在当前作用域以及嵌套的子作用域中根据标识符名称进行变量查找？</h3>
 <div class="hlcode"><pre>    <span class="mi">1</span><span class="err">、词法作用域</span> <span class="mi">2</span><span class="err">、动态作用域</span><span class="p">(</span><span class="n">bash</span><span class="p">)</span>
@@ -29,7 +29,7 @@
 <p>一、词法阶段    作用域气泡：严格包含</p>
 <div class="hlcode"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>                         <span class="c1">// 1、全局作用域 标识符foo</span>
 <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>                   <span class="c1">// 2、包含着foo所创建的作用域 三个标识符 a bar b           </span>
+      <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>                   <span class="c1">// 2、包含着foo所创建的作用域 三个标识符 a bar b</span>
       <span class="kd">function</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>                <span class="c1">// 3、包含着bar所创建的作用域 标识符 c</span>
       <span class="p">{</span>
             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">,</span><span class="nx">c</span><span class="p">);</span>
