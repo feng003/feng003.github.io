@@ -176,7 +176,8 @@ newObj.b   // undefined</p>
 <p>冻结 Object.freeze()</p>
 </li>
 </ol>
-<h4 id="get-getprototype">[[Get]] 对象默认的内置[[Get]]操作首先在对象中查找是否有名称相同的属性，如果没有找到，就会变量可能存在的[[Prototype]]链</h4>
+<h4 id="get">[[Get]]</h4>
+<p>对象默认的内置[[Get]]操作首先在对象中查找是否有名称相同的属性，如果没有找到，就会变量可能存在的[[Prototype]]链</p>
 <div class="hlcode"><pre><span class="n">var</span> <span class="n">myObj</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="o">:</span><span class="n">undefined</span><span class="p">}</span>
 <span class="n">myObj</span><span class="p">.</span><span class="n">a</span>   <span class="c1">// undefined</span>
 <span class="n">myObj</span><span class="p">.</span><span class="n">b</span>  <span class="c1">// undefined</span>
