@@ -23,7 +23,7 @@
   <blockquote>
 <p>Write Dockerfile</p>
 </blockquote>
-<h6 id="write-a-dockerfile">Write a Dockerfile</h6>
+<h5 id="write-a-dockerfile">Write a Dockerfile</h5>
 <div class="hlcode"><pre><span class="n">mkdir</span> <span class="n">dockerbuild</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">dockerbuild</span>
 <span class="n">sudo</span> <span class="n">vim</span> <span class="n">Dockerfile</span>
 
@@ -33,7 +33,7 @@
 </pre></div>
 
 
-<h6 id="build-an-image-from-your-dockerfile">Build an image from your Dockerfile</h6>
+<h5 id="build-an-image-from-your-dockerfile">Build an image from your Dockerfile</h5>
 <div class="hlcode"><pre><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">feng003</span><span class="o">/</span><span class="n">test</span> <span class="p">.</span> <span class="p">(</span><span class="err">注意最后有个点</span> <span class="p">.)</span>
 <span class="n">docker</span> <span class="n">run</span> <span class="n">feng003</span><span class="o">/</span><span class="n">test</span>
 </pre></div>
@@ -42,13 +42,13 @@
 <blockquote>
 <p>Delete images</p>
 </blockquote>
-<h6 id="container">停止所有的  container</h6>
+<h5 id="container">停止所有的  container</h5>
 <div class="hlcode"><pre><span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">q</span>        <span class="c1">// 994ecc0d5205</span>
 <span class="n">sudo</span> <span class="n">docker</span> <span class="n">stop</span> <span class="mi">994</span><span class="n">ecc0d5205</span>
 </pre></div>
 
 
-<h6 id="imagesimage-id">删除 images，通过image 的id来确定删除</h6>
+<h5 id="imagesimage-id">删除 images，通过image 的id来确定删除</h5>
 <div class="hlcode"><pre><span class="n">docker</span> <span class="n">images</span>
 <span class="n">sudo</span> <span class="n">docker</span> <span class="n">rmi</span> <span class="o">&lt;</span><span class="n">image</span> <span class="n">id</span><span class="o">&gt;</span>
 </pre></div>
