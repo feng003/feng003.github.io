@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>docker(6): docker run  - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#linux">linux</a>&nbsp;»&nbsp;docker(6): docker run </div>
+</div>
+<div class="clearfix"></div>
+<div id="title">docker(6): docker run </div>
+  <div id="content">
+  <blockquote>
+<p>docker run</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="n">ubuntu</span><span class="o">:</span><span class="mf">14.04</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
+
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">m</span> <span class="mi">300</span><span class="n">M</span> <span class="o">--</span><span class="n">memory</span><span class="o">-</span><span class="n">swap</span> <span class="o">-</span><span class="mi">1</span> <span class="n">ubuntu</span><span class="o">:</span><span class="mf">14.04</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
+
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">m</span> <span class="mi">300</span><span class="n">M</span> <span class="n">ubuntu</span><span class="o">:</span><span class="mf">14.04</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
+</pre></div>
+
+
+<p><a href="https://docs.docker.com/engine/reference/run/">run</a></p>
+<blockquote>
+<p>docker tag / push</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">docker</span> <span class="n">images</span>
+<span class="n">docker</span> <span class="n">tag</span> <span class="mi">7</span><span class="n">d9495d03763</span> <span class="n">feng003</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">:</span><span class="mf">14.04</span>
+<span class="n">docker</span> <span class="n">login</span>
+<span class="n">docker</span> <span class="n">push</span> <span class="n">feng003</span><span class="o">/</span><span class="n">ubuntu</span>
+</pre></div>
+
+
+<p><a href="https://docs.docker.com/engine/getstarted/step_six/">push/tag</a></p>
+<blockquote>
+<p>E: Unable to locate package git</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span>
+</pre></div>
+
+
+<p><a href="http://askubuntu.com/questions/557297/e-unable-to-locate-package-git">参考地址</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
