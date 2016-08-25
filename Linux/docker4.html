@@ -98,14 +98,20 @@
 
 
 <blockquote>
-<p>tag and push</p>
+<p>Tag and Push</p>
 </blockquote>
 <div class="hlcode"><pre><span class="n">docker</span> <span class="n">tag</span> <span class="o">&lt;</span><span class="n">image</span> <span class="n">id</span><span class="o">&gt;</span> <span class="n">feng003</span><span class="o">/</span><span class="n">node</span><span class="o">:</span><span class="n">v1</span>
 <span class="n">docker</span> <span class="n">login</span>
 <span class="n">docker</span> <span class="n">push</span> <span class="n">feng003</span><span class="o">/</span><span class="n">node</span><span class="o">:</span><span class="n">v1</span>
+
+<span class="n">docker</span> <span class="n">images</span>
+<span class="n">docker</span> <span class="n">tag</span> <span class="mi">7</span><span class="n">d9495d03763</span> <span class="n">feng003</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">:</span><span class="mf">14.04</span>
+<span class="n">docker</span> <span class="n">login</span>
+<span class="n">docker</span> <span class="n">push</span> <span class="n">feng003</span><span class="o">/</span><span class="n">ubuntu</span>
 </pre></div>
 
 
+<p><a href="https://docs.docker.com/engine/getstarted/step_six/">官方文档 - push/tag</a></p>
 <blockquote>
 <p>Run    docker run -it ubuntu sh -c '/bin/bash'  创建新的容器</p>
 </blockquote>
@@ -114,15 +120,20 @@
 </pre></div>
 
 
-<h5 id="docker-mapped-the-8080-port-inside-of-the-container-to-the-port-49160-on-your-machine">Docker mapped the 8080 port inside of the container to the port 49160 on your machine.</h5>
+<h6 id="docker-mapped-the-8080-port-inside-of-the-container-to-the-port-49160-on-your-machine">Docker mapped the 8080 port inside of the container to the port 49160 on your machine.</h6>
 <div class="hlcode"><pre><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">p</span> <span class="mi">49160</span><span class="o">:</span><span class="mi">8080</span> <span class="o">-</span><span class="n">d</span> <span class="n">feng003</span><span class="o">/</span><span class="n">node</span><span class="o">:</span><span class="n">v1</span>
 
 <span class="n">docker</span> <span class="n">ps</span>  <span class="c1">//get container id</span>
 <span class="n">docker</span> <span class="n">logs</span> <span class="o">&lt;</span><span class="n">container</span> <span class="n">id</span><span class="o">&gt;</span>  <span class="c1">// print app output</span>
 <span class="n">curl</span> <span class="n">http</span><span class="o">:</span><span class="c1">//localhost:49160</span>
+
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="n">ubuntu</span><span class="o">:</span><span class="mf">14.04</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">m</span> <span class="mi">300</span><span class="n">M</span> <span class="o">--</span><span class="n">memory</span><span class="o">-</span><span class="n">swap</span> <span class="o">-</span><span class="mi">1</span> <span class="n">ubuntu</span><span class="o">:</span><span class="mf">14.04</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">m</span> <span class="mi">300</span><span class="n">M</span> <span class="n">ubuntu</span><span class="o">:</span><span class="mf">14.04</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
 </pre></div>
 
 
+<p><a href="https://docs.docker.com/engine/reference/run/">官方文档 - run</a></p>
 <blockquote>
 <p>start docker start -i <container name>   启动容器</p>
 </blockquote>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>nginx 负载均衡 以及 反向代理服务器配置 - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Linux">Linux</a>&nbsp;»&nbsp;nginx 负载均衡 以及 反向代理服务器配置</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">nginx 负载均衡 以及 反向代理服务器配置</div>
+  <div id="content">
+  <blockquote>
+<p>Nginx 负载均衡(load balance) 配置</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">http</span><span class="p">{</span>
+    <span class="n">upstream</span> <span class="n">sampleapp</span> <span class="p">{</span>
+        <span class="c1">// 可选配置项，如 least_conn，ip_hash</span>
+        <span class="n">server</span> <span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">3000</span> <span class="n">weight</span> <span class="o">=</span><span class="mi">10</span><span class="p">;</span>  <span class="c1">// weight 权重</span>
+        <span class="n">server</span> <span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">3001</span> <span class="n">weight</span> <span class="o">=</span><span class="mi">15</span><span class="p">;</span>
+        <span class="n">server</span> <span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">3002</span> <span class="n">weight</span> <span class="o">=</span><span class="mi">20</span><span class="p">;</span>
+        <span class="n">server</span> <span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">3003</span> <span class="n">weight</span> <span class="o">=</span><span class="mi">30</span><span class="p">;</span>
+        <span class="c1">// ... 监听更多端口</span>
+    <span class="p">}</span>
+    <span class="p">....</span>
+    <span class="n">server</span><span class="p">{</span>
+       <span class="n">listen</span> <span class="mi">80</span><span class="p">;</span>
+       <span class="p">...</span>
+       <span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
+          <span class="n">proxy_pass</span> <span class="n">http</span><span class="o">:</span><span class="c1">//sampleapp; // 监听 80 端口，然后转发</span>
+       <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<h5 id="least_conn-nodejs-ip_hash-ip-nodejs">默认的负载均衡规则是把网络请求依次分配到不同的端口，我们可以用 least_conn 标志把网络请求转发到连接数最少的 Node.js 进程，也可以用 ip_hash 保证同一个 ip 的请求一定由同一个 Node.js 进程处理。</h5>
+<blockquote>
+<p>Nginx 反向代理服务器</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
+         <span class="err">#设置主机头和客户端真实地址，以便服务器获取客户端真实</span><span class="n">IP</span>
+         <span class="n">proxy_set_header</span> <span class="n">Host</span> <span class="err">$</span><span class="n">host</span><span class="p">;</span>
+         <span class="n">proxy_set_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Real</span><span class="o">-</span><span class="n">IP</span> <span class="err">$</span><span class="n">remote_addr</span><span class="p">;</span>
+         <span class="n">proxy_set_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">For</span>
+         <span class="err">$</span><span class="n">proxy_add_x_forwarded_for</span><span class="p">;</span>
+
+         <span class="err">#禁用缓存</span>
+         <span class="n">proxy_buffering</span> <span class="n">off</span><span class="p">;</span>
+
+         <span class="err">#设置反向代理的地址</span>
+         <span class="n">proxy_pass</span> <span class="n">http</span><span class="o">:</span><span class="c1">//192.168.1.1;</span>
+         <span class="p">}</span>
+</pre></div>
+
+
+<p><a href="http://www.linuxdiyf.com/linux/10205.html">参考地址</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

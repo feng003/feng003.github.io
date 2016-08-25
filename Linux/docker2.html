@@ -42,18 +42,18 @@
 <blockquote>
 <p>Delete images</p>
 </blockquote>
-<h5 id="container">停止所有的  container</h5>
-<div class="hlcode"><pre><span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">q</span>        <span class="c1">// 994ecc0d5205</span>
-<span class="n">sudo</span> <span class="n">docker</span> <span class="n">stop</span> <span class="mi">994</span><span class="n">ecc0d5205</span>
-</pre></div>
-
-
-<h5 id="imagesimage-id">删除 images，通过image 的id来确定删除</h5>
-<div class="hlcode"><pre><span class="n">docker</span> <span class="n">images</span>
-<span class="n">sudo</span> <span class="n">docker</span> <span class="n">rmi</span> <span class="o">&lt;</span><span class="n">image</span> <span class="n">id</span><span class="o">&gt;</span>
-</pre></div>
-
-
+<ol>
+<li>
+<p>停止所有的  container</p>
+<p>docker ps -a -q        // 994ecc0d5205
+sudo docker stop 994ecc0d5205</p>
+</li>
+<li>
+<p>删除 images，通过image 的id来确定删除</p>
+<p>docker images
+sudo docker rmi <image id></p>
+</li>
+</ol>
 <p><a href="https://docs.docker.com/engine/getstarted/step_four/#step-1-write-a-dockerfile">参考地址</a></p>
 </div>
 
