@@ -63,7 +63,21 @@
 </pre></div>
 
 
+<blockquote>
+<p>Nginx 缓存设置   expires、etag、if-modified-since指令来进行浏览器缓存控制</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">expires</span>
+<span class="n">location</span> <span class="o">/</span><span class="n">img</span> <span class="p">{</span>
+    <span class="n">alias</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="p">;</span>
+    <span class="n">expires</span> <span class="mi">1</span><span class="n">d</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="o">-</span><span class="n">modified</span><span class="o">-</span><span class="n">since</span>
+</pre></div>
+
+
 <p><a href="http://www.linuxdiyf.com/linux/10205.html">参考地址</a></p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzIwODA4NjMwNA==&amp;mid=2652897955&amp;idx=1&amp;sn=de2d8984f6d0f9e061d1da35df84b182&amp;scene=0#wechat_redirect">缓存参考文档</a></p>
 </div>
 
         </div>
