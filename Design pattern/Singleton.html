@@ -62,39 +62,43 @@
 <ol>
 <li>
 <p>命名空间</p>
-<p>var Z = {
-    g:function(id)
-    {
-        return document.getElementById(id);
-    },
-    css:function(id,key,value)
-    {
-        this.g(id).style[key] = value;
-    }
-};</p>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">Z</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">g</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">css</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="nx">key</span><span class="p">,</span><span class="nx">value</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">g</span><span class="p">(</span><span class="nx">id</span><span class="p">).</span><span class="nx">style</span><span class="cp">[</span><span class="nb">key</span><span class="cp">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+
 </li>
 <li>
 <p>模块化</p>
 </li>
 <li>
 <p>静态变量(无法修改)</p>
-<p>var Conf = (function(){
-    var conf = {
-        MAX_NUM : 100,
-        MIN_NUM : 1,
-        COUNT: 100
-    };</p>
-<div class="hlcode"><pre><span class="k">return</span> <span class="p">{</span>
-    <span class="nx">get</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
-        <span class="k">return</span> <span class="nx">conf</span><span class="cp">[</span><span class="nb">name</span><span class="cp">]</span> <span class="o">?</span> <span class="nx">conf</span><span class="cp">[</span><span class="nb">name</span><span class="cp">]</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">Conf</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">conf</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">MAX_NUM</span> <span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="nx">MIN_NUM</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">COUNT</span><span class="o">:</span> <span class="mi">100</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">get</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+            <span class="k">return</span> <span class="nx">conf</span><span class="cp">[</span><span class="nb">name</span><span class="cp">]</span> <span class="o">?</span> <span class="nx">conf</span><span class="cp">[</span><span class="nb">name</span><span class="cp">]</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span>
+<span class="p">})();</span>
+<span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="nx">Conf</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;COUNT&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">count</span><span class="p">);</span>
 </pre></div>
 
 
-<p>})();
-var count = Conf.get('COUNT');
-console.log(count);</p>
 </li>
 <li>
 <p>惰性单例(延迟创建)</p>
