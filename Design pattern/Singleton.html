@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>设计模式之单例模式 - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Design pattern">Design pattern</a>&nbsp;»&nbsp;设计模式之单例模式</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">设计模式之单例模式</div>
+  <div id="content">
+  <blockquote>
+<p>概念（环境、问题、解决方案）</p>
+</blockquote>
+<p>确保一个类仅有一个<strong>唯一的实例</strong>，并且提供一个全局的访问点</p>
+<p>解决的问题：类的“独生子女”(类class 和 实例object)</p>
+<p>解决方案：</p>
+<div class="hlcode"><pre><span class="err">将构造函数声明成私有类型，屏蔽通过直接实例化的形式来访问</span>
+
+<span class="err">控制全局只有一个实例的类</span> <span class="o">--</span> <span class="kr">static</span>
+
+<span class="err">提供一个可以获取该实例的方法，用于返回类的实例，并保证得到的是同一个对象</span>
+
+<span class="kr">class</span> <span class="nx">Singleton</span>
+<span class="p">{</span>
+    <span class="c1">//静态私有变量保存唯一的实例</span>
+    <span class="kr">private</span> <span class="kr">static</span> <span class="nx">$singleton</span><span class="o">=</span><span class="kc">null</span><span class="p">;</span>
+
+    <span class="kr">private</span> <span class="kd">function</span> <span class="nx">__construct</span><span class="p">(){</span>
+
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * 保证只会实例化一次 单例统一访问入口</span>
+<span class="cm">     * @return null|Singleton  返回应用中的唯一对象实例</span>
+<span class="cm">     */</span>
+    <span class="kr">static</span> <span class="kr">public</span> <span class="kd">function</span> <span class="nx">getInstance</span><span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">is_null</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="nx">$singleton</span><span class="p">)</span> <span class="o">||</span> <span class="nx">isset</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="nx">$singleton</span><span class="p">)){</span>
+            <span class="nx">self</span><span class="o">::</span><span class="nx">$singleton</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">self</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">self</span><span class="o">::</span><span class="nx">$singleton</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<blockquote>
+<p>javascript 单例模式应用</p>
+</blockquote>
+<ol>
+<li>
+<p>命名空间</p>
+<p>var Z = {
+    g:function(id)
+    {
+        return document.getElementById(id);
+    },
+    css:function(id,key,value)
+    {
+        this.g(id).style[key] = value;
+    }
+};</p>
+</li>
+<li>
+<p>模块化</p>
+</li>
+<li>
+<p>静态变量(无法修改)</p>
+<p>var Conf = (function(){
+    var conf = {
+        MAX_NUM : 100,
+        MIN_NUM : 1,
+        COUNT: 100
+    };</p>
+<div class="hlcode"><pre><span class="k">return</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">conf</span><span class="cp">[</span><span class="nb">name</span><span class="cp">]</span> <span class="o">?</span> <span class="nx">conf</span><span class="cp">[</span><span class="nb">name</span><span class="cp">]</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>})();
+var count = Conf.get('COUNT');
+console.log(count);</p>
+</li>
+<li>
+<p>惰性单例(延迟创建)</p>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">LazySingle</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">//单例实例引用</span>
+    <span class="kd">var</span> <span class="nx">_instance</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="c1">//单例</span>
+    <span class="kd">function</span> <span class="nx">Single</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">publicMethod</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">)},</span>
+            <span class="nx">publicProperty</span> <span class="o">:</span> <span class="s1">&#39;1.0&#39;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">//获取单例对象接口</span>
+    <span class="k">return</span> <span class="kd">function</span> <span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">_instance</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_instance</span> <span class="o">=</span> <span class="nx">Single</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="c1">//返回单例</span>
+        <span class="k">return</span> <span class="nx">_instance</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">})();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">LazySingle</span><span class="p">().</span><span class="nx">publicProperty</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">LazySingle</span><span class="p">().</span><span class="nx">publicMethod</span><span class="p">());</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p><a href="http://www.cnblogs.com/lh460795/archive/2013/07/30/3225650.html">php参考文章</a></p>
+<p><a href="javascript 设计模式">js参考书籍</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
