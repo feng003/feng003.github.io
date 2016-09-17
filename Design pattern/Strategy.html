@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>设计模式之策略模式(Strategy) - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Design pattern">Design pattern</a>&nbsp;»&nbsp;设计模式之策略模式(Strategy)</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">设计模式之策略模式(Strategy)</div>
+  <div id="content">
+  <blockquote>
+<p>策略模式 一系列算法封装起来，使他们可以互相替换</p>
+</blockquote>
+<ol>
+<li>抽象策略类</li>
+<li>具体策略类</li>
+<li>环境类<div class="hlcode"><pre><span class="cm">/**</span>
+<span class="cm">* Interface Strategy 抽象策略类</span>
+<span class="cm">*/</span>
+
+<span class="k">interface</span> <span class="n">Strategy</span><span class="p">{</span>
+    <span class="n">public</span> <span class="k">function</span> <span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm">* Class Genernal 具体策略类</span>
+<span class="cm">*/</span>
+
+<span class="k">class</span> <span class="n">Genernal</span> <span class="n">implements</span> <span class="n">Strategy</span><span class="p">{</span>
+
+    <span class="n">public</span> <span class="k">function</span> <span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// TODO: Implement computePrice() method.</span>
+        <span class="k">return</span> <span class="err">$</span><span class="n">price</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="n">Middle</span> <span class="n">implements</span> <span class="n">Strategy</span><span class="p">{</span>
+
+    <span class="n">public</span> <span class="k">function</span> <span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// TODO: Implement computePrice() method.</span>
+        <span class="k">return</span> <span class="err">$</span><span class="n">price</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="n">High</span> <span class="n">implements</span> <span class="n">Strategy</span><span class="p">{</span>
+
+    <span class="n">public</span> <span class="k">function</span> <span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// TODO: Implement computePrice() method.</span>
+        <span class="k">return</span> <span class="err">$</span><span class="n">price</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm">* Class Price 环境实现类</span>
+<span class="cm">*/</span>
+
+<span class="k">class</span> <span class="n">Price</span><span class="p">{</span>
+    <span class="c1">// 具体策略对象</span>
+    <span class="n">private</span> <span class="err">$</span><span class="n">strategyInstance</span><span class="p">;</span>
+    <span class="c1">// 构造函数</span>
+    <span class="n">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="err">$</span><span class="k">instance</span><span class="p">){</span>
+        <span class="err">$</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">strategyInstance</span> <span class="o">=</span> <span class="err">$</span><span class="k">instance</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="k">function</span> <span class="n">compute</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">){</span>
+        <span class="k">return</span> <span class="err">$</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">strategyInstance</span><span class="o">-&gt;</span><span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="err">$</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Price</span><span class="p">(</span><span class="k">new</span> <span class="n">High</span><span class="p">());</span>
+
+<span class="err">$</span><span class="n">total</span> <span class="o">=</span> <span class="err">$</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">compute</span><span class="p">(</span><span class="mh">100</span><span class="p">);</span>
+</pre></div>
+
+
+</li>
+</ol>
+<blockquote>
+<p>javascript 策略模式</p>
+</blockquote>
+<h5 id="_1">价格策略对象</h5>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">PriceStrategy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">stragtegy</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">return30</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">price</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">price</span> <span class="o">+</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">price</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">*</span><span class="mi">30</span><span class="p">;</span>
+            <span class="p">},</span>
+            <span class="nx">return50</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">price</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">price</span> <span class="o">+</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">price</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span><span class="p">;</span>
+            <span class="p">},</span>
+            <span class="nx">percent90</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">price</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">price</span><span class="o">*</span><span class="mi">100</span><span class="o">*</span><span class="mi">90</span><span class="o">/</span><span class="mi">10000</span><span class="p">;</span>
+            <span class="p">},</span>
+            <span class="nx">percent80</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">price</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">price</span><span class="o">*</span><span class="mi">100</span><span class="o">*</span><span class="mi">80</span><span class="o">/</span><span class="mi">10000</span><span class="p">;</span>
+            <span class="p">},</span>
+            <span class="nx">percent50</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">price</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">price</span><span class="o">*</span><span class="mi">100</span><span class="o">*</span><span class="mi">50</span><span class="o">/</span><span class="mi">10000</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+        <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">alg</span><span class="p">,</span><span class="nx">price</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">stragtegy</span><span class="cp">[</span><span class="nx">alg</span><span class="cp">]</span> <span class="o">&amp;&amp;</span> <span class="nx">stragtegy</span><span class="cp">[</span><span class="nx">alg</span><span class="cp">]</span><span class="p">(</span><span class="nx">price</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="p">}();</span>
+<span class="kd">var</span> <span class="nx">price</span> <span class="o">=</span> <span class="nx">PriceStrategy</span><span class="p">(</span><span class="s1">&#39;return50&#39;</span><span class="p">,</span><span class="s1">&#39;200&#39;</span><span class="p">);</span>
+</pre></div>
+
+
+<h5 id="_2">表单验证</h5>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">InputStrategy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">strategy</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">notNull</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+            <span class="p">{</span>
+                    <span class="k">return</span> <span class="sr">/\s+/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span><span class="o">?</span><span class="s1">&#39;请输入内容&#39;</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+            <span class="p">},</span>
+            <span class="nx">number</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+            <span class="p">{</span>
+                    <span class="k">return</span> <span class="sr">/^</span><span class="cp">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="cp">]</span><span class="sr">+(\.</span><span class="cp">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="cp">]</span><span class="sr">+)?$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="s1">&#39;请输入数字&#39;</span><span class="p">;</span>
+            <span class="p">},</span>
+            <span class="nx">phone</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+            <span class="p">{</span>
+                    <span class="k">return</span> <span class="sr">/^d{3}\-\d{8}$\d{4}\-\d{7}$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="s1">&#39;请输入正确的电话号码格式，如010-12345678&#39;</span><span class="p">;</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">check</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span><span class="nx">value</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^s+|\s+$/</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+                <span class="k">return</span> <span class="nx">strategy</span><span class="cp">[</span><span class="k">type</span><span class="cp">]</span> <span class="o">?</span> <span class="nx">strategy</span><span class="cp">[</span><span class="k">type</span><span class="cp">]</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;没有该类型的检测方法&#39;</span>
+        <span class="p">},</span>
+        <span class="c1">//添加策略</span>
+        <span class="nx">addStrategy</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="nx">strategy</span><span class="cp">[</span><span class="k">type</span><span class="cp">]</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}();</span>
+<span class="nx">InputStrategy</span><span class="p">.</span><span class="nx">addStrategy</span><span class="p">(</span><span class="s1">&#39;nickname&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+        <span class="k">return</span> <span class="sr">/^</span><span class="cp">[</span><span class="nx">a</span><span class="na">-zA-z</span><span class="cp">]</span><span class="sr">\w{3,7}$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="s1">&#39;请输入4-8位昵称&#39;</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<h5 id="jq-animate-easingjs">缓冲函数 jq 的animate方法以及 easing.js</h5>
+<h4 id="_3">对于分支语句的优化，可以通过三种模式：工厂方法模式，状态模式与策略模式。</h4>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>设计模式 - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Design pattern">Design pattern</a>&nbsp;»&nbsp;设计模式</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">设计模式</div>
+  <div id="content">
+  <blockquote>
+<p>面向对象设计原则</p>
+</blockquote>
+<ol>
+<li>
+<p>开闭原则(Open-Close Principle OCP)</p>
+<div class="hlcode"><pre><span class="n">open</span> <span class="k">for</span> <span class="n">extension</span> <span class="p">;</span> <span class="n">closed</span> <span class="k">for</span> <span class="n">modification</span>
+<span class="err">在不修改源代码的基础之上扩展一个系统</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>依赖倒转原则(Dependency Inversion Principle DIP)</p>
+<div class="hlcode"><pre><span class="err">面向接口（抽象）编程</span>
+<span class="err">禁止具体与具体进行交互</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>单一职责原则(Single Responsibility Principle SRP)</p>
+<div class="hlcode"><pre><span class="err">类的设计主要工作是</span><span class="s">&quot;发现职责&quot;</span><span class="err">并</span><span class="s">&quot;分离职责&quot;</span><span class="err">，一个类只负责一个功能领域中的相应职责。</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>合成复用原则(Composite Recuse Principle CRP)</p>
+<div class="hlcode"><pre><span class="err">组合</span><span class="o">/</span><span class="err">聚合复用原则</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>里氏替换原则(Liskov Substitution Principle LSP)</p>
+</li>
+</ol>
+<p>主要是<strong>针对继承</strong>的设计原则</p>
+<p>子类可以扩展父类的功能，但不能改变父类原有的功能</p>
+<p>子类<strong>可以实现</strong>父类的抽象方法，但<strong>不能覆盖</strong>父类的非抽象方法</p>
+<p>子类中<strong>可以增加</strong>自己特有的方法</p>
+<p>当子类的方法重载父类的方法时，方法的前置条件（方法的形参）要比父类方法的<strong>输入参数更宽松</strong></p>
+<p>当子类的方法实现父类的抽象方法时，方法的后置添加（方法的<strong>返回值</strong>）要比父类<strong>更严格</strong></p>
+<ol>
+<li>
+<p>迪米特法则(Law of Demeter LoD)</p>
+<div class="hlcode"><pre><span class="err">最少知识原则（通过第三者转发调用）</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>接口隔离原则(Interface Segregation Principle ISP)</p>
+<div class="hlcode"><pre><span class="n">Interface</span>
+</pre></div>
+
+
+</li>
+</ol>
+<blockquote>
+<p>目录</p>
+</blockquote>
+<p><a href="./Singleton.md">单例原则</a></p>
+<p><a href="./Strategy.md">策略原则</a></p>
+<p><a href="http://www.ibm.com/developerworks/cn/opensource/os-php-designptrns/">设计模式</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

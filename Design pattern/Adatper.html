@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>设计模式之速配器模式(Adapter) - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Design pattern">Design pattern</a>&nbsp;»&nbsp;设计模式之速配器模式(Adapter)</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">设计模式之速配器模式(Adapter)</div>
+  <div id="content">
+  <blockquote>
+<p>php 速配器模式实例</p>
+</blockquote>
+<h5 id="_1">速配器 将一个类（对象）的接口（方法或者属性）转化成另一个接口，以满足用户需求，使类（对象）之间的不兼容问题通过速配器得以解决。</h5>
+<h5 id="_2">应用：数据库操作以及缓存策略</h5>
+<p><strong>demo0</strong></p>
+<div class="hlcode"><pre><span class="cm">/**</span>
+<span class="cm">* 速配目标 规定的接口将被速配对象实现</span>
+<span class="cm">* Interface Database</span>
+<span class="cm">*/</span>
+<span class="k">interface</span> <span class="n">Database</span>
+<span class="p">{</span>
+    <span class="n">public</span> <span class="k">function</span> <span class="n">connect</span><span class="p">(</span><span class="err">$</span><span class="n">host</span><span class="p">,</span><span class="err">$</span><span class="n">username</span><span class="p">,</span><span class="err">$</span><span class="n">pwd</span><span class="p">,</span><span class="err">$</span><span class="n">database</span><span class="p">);</span>
+
+    <span class="n">public</span> <span class="k">function</span> <span class="n">query</span><span class="p">(</span><span class="err">$</span><span class="n">sql</span><span class="p">);</span>
+
+    <span class="c1">//    public function insert($sql);</span>
+    <span class="c1">//    public function find($sql);</span>
+    <span class="c1">//    public function update($sql);</span>
+    <span class="c1">//    public function delete($sql);</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm">* 速配器</span>
+<span class="cm">* Class Mysql</span>
+<span class="cm">*/</span>
+<span class="k">class</span> <span class="n">Mysql</span> <span class="n">implements</span> <span class="n">Database</span><span class="p">{</span>
+    <span class="k">protected</span> <span class="err">$</span><span class="n">_connect</span><span class="p">;</span>
+
+    <span class="n">public</span> <span class="k">function</span> <span class="n">connect</span><span class="p">(</span><span class="err">$</span><span class="n">host</span><span class="p">,</span> <span class="err">$</span><span class="n">username</span><span class="p">,</span> <span class="err">$</span><span class="n">pwd</span><span class="p">,</span> <span class="err">$</span><span class="n">database</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="err">$</span><span class="n">connect</span> <span class="o">=</span> <span class="n">mysqli_connect</span><span class="p">(</span><span class="err">$</span><span class="n">host</span><span class="p">,</span><span class="err">$</span><span class="n">username</span><span class="p">,</span><span class="err">$</span><span class="n">pwd</span><span class="p">,</span><span class="err">$</span><span class="n">database</span><span class="p">);</span>
+        <span class="n">mysqli_select_db</span><span class="p">(</span><span class="err">$</span><span class="n">database</span><span class="p">,</span><span class="err">$</span><span class="n">connect</span><span class="p">);</span>
+        <span class="err">$</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">_connect</span> <span class="o">=</span> <span class="err">$</span><span class="n">connect</span><span class="p">;</span>
+        <span class="c1">// TODO: Implement connect() method.</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="k">function</span> <span class="n">query</span><span class="p">(</span><span class="err">$</span><span class="n">sql</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// TODO: Implement query() method.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm">* 速配器</span>
+<span class="cm">* Class Mongodb</span>
+<span class="cm">*/</span>
+<span class="k">class</span> <span class="n">Mongodb</span> <span class="n">implements</span> <span class="n">Database</span><span class="p">{</span>
+    <span class="k">protected</span> <span class="err">$</span><span class="n">_connect</span><span class="p">;</span>
+    <span class="n">public</span> <span class="k">function</span> <span class="n">connect</span><span class="p">(</span><span class="err">$</span><span class="n">host</span><span class="p">,</span> <span class="err">$</span><span class="n">username</span><span class="p">,</span> <span class="err">$</span><span class="n">pwd</span><span class="p">,</span> <span class="err">$</span><span class="n">database</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="err">$</span><span class="n">server</span> <span class="o">=</span> <span class="s">&quot;mongodb://&quot;</span><span class="p">.</span><span class="err">$</span><span class="n">host</span><span class="p">.</span><span class="s">&quot;:27017&quot;</span><span class="p">;</span>
+        <span class="err">$</span><span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MongoClient</span><span class="p">(</span><span class="err">$</span><span class="n">server</span><span class="p">);</span> <span class="c1">// 连接默认主机和端口为：mongodb://localhost:27017</span>
+        <span class="err">$</span><span class="n">connect</span> <span class="o">=</span> <span class="err">$</span><span class="n">m</span><span class="o">-&gt;</span><span class="err">$</span><span class="n">database</span><span class="p">;</span>
+        <span class="err">$</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">_connect</span> <span class="o">=</span> <span class="err">$</span><span class="n">connect</span><span class="p">;</span>
+        <span class="c1">// TODO: Implement connect() method.</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="k">function</span> <span class="n">query</span><span class="p">(</span><span class="err">$</span><span class="n">sql</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// TODO: Implement query() method.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="err">$</span><span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mysql</span><span class="p">();</span>
+<span class="err">$</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">query</span><span class="p">(</span><span class="err">$</span><span class="n">sql</span><span class="p">);</span>
+</pre></div>
+
+
+<blockquote>
+<p>javascript 速配器模式 实例</p>
+</blockquote>
+<p><strong>demo1</strong></p>
+<div class="hlcode"><pre>    <span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">A</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">A</span> <span class="o">=</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">;</span>
+    <span class="nx">A</span><span class="p">.</span><span class="nx">g</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="nx">id</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">A</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">dom</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">id</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="o">?</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">id</span><span class="p">)</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+        <span class="nx">dom</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">A</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span><span class="s1">&#39;load&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">A</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;mybutton&#39;</span><span class="p">,</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
+        <span class="p">})</span>
+    <span class="p">})</span>
+</pre></div>
+
+
+<p><a href="http://www.phpddt.com/php/design-adapter.html">php设计模式</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
