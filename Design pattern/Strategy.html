@@ -24,72 +24,81 @@
 <p>策略模式 一系列算法封装起来，使他们可以互相替换</p>
 </blockquote>
 <ol>
-<li>抽象策略类</li>
-<li>具体策略类</li>
-<li>环境类<div class="hlcode"><pre><span class="cm">/**</span>
-<span class="cm">* Interface Strategy 抽象策略类</span>
-<span class="cm">*/</span>
+<li>
+<p>抽象策略类</p>
+</li>
+<li>
+<p>具体策略类</p>
+</li>
+<li>
+<p>环境类</p>
+</li>
+</ol>
+<blockquote>
+<p>php 策略模式</p>
+</blockquote>
+<div class="hlcode"><pre>    <span class="cm">/**</span>
+<span class="cm">    * Interface Strategy 抽象策略类</span>
+<span class="cm">    */</span>
 
-<span class="k">interface</span> <span class="n">Strategy</span><span class="p">{</span>
-    <span class="n">public</span> <span class="k">function</span> <span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="cm">/**</span>
-<span class="cm">* Class Genernal 具体策略类</span>
-<span class="cm">*/</span>
-
-<span class="k">class</span> <span class="n">Genernal</span> <span class="n">implements</span> <span class="n">Strategy</span><span class="p">{</span>
-
-    <span class="n">public</span> <span class="k">function</span> <span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// TODO: Implement computePrice() method.</span>
-        <span class="k">return</span> <span class="err">$</span><span class="n">price</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">class</span> <span class="n">Middle</span> <span class="n">implements</span> <span class="n">Strategy</span><span class="p">{</span>
-
-    <span class="n">public</span> <span class="k">function</span> <span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// TODO: Implement computePrice() method.</span>
-        <span class="k">return</span> <span class="err">$</span><span class="n">price</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">class</span> <span class="n">High</span> <span class="n">implements</span> <span class="n">Strategy</span><span class="p">{</span>
-
-    <span class="n">public</span> <span class="k">function</span> <span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// TODO: Implement computePrice() method.</span>
-        <span class="k">return</span> <span class="err">$</span><span class="n">price</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="cm">/**</span>
-<span class="cm">* Class Price 环境实现类</span>
-<span class="cm">*/</span>
-
-<span class="k">class</span> <span class="n">Price</span><span class="p">{</span>
-    <span class="c1">// 具体策略对象</span>
-    <span class="n">private</span> <span class="err">$</span><span class="n">strategyInstance</span><span class="p">;</span>
-    <span class="c1">// 构造函数</span>
-    <span class="n">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="err">$</span><span class="k">instance</span><span class="p">){</span>
-        <span class="err">$</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">strategyInstance</span> <span class="o">=</span> <span class="err">$</span><span class="k">instance</span><span class="p">;</span>
+    <span class="kr">interface</span> <span class="nx">Strategy</span><span class="p">{</span>
+        <span class="kr">public</span> <span class="kd">function</span> <span class="nx">computePrice</span><span class="p">(</span><span class="nx">$price</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="n">public</span> <span class="k">function</span> <span class="n">compute</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">){</span>
-        <span class="k">return</span> <span class="err">$</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">strategyInstance</span><span class="o">-&gt;</span><span class="n">computePrice</span><span class="p">(</span><span class="err">$</span><span class="n">price</span><span class="p">);</span>
+    <span class="cm">/**</span>
+<span class="cm">    * Class Genernal 具体策略类</span>
+<span class="cm">    */</span>
+
+    <span class="kr">class</span> <span class="nx">Genernal</span> <span class="kr">implements</span> <span class="nx">Strategy</span><span class="p">{</span>
+
+        <span class="kr">public</span> <span class="kd">function</span> <span class="nx">computePrice</span><span class="p">(</span><span class="nx">$price</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement computePrice() method.</span>
+            <span class="k">return</span> <span class="nx">$price</span><span class="p">;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span>
 
-<span class="err">$</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Price</span><span class="p">(</span><span class="k">new</span> <span class="n">High</span><span class="p">());</span>
+    <span class="kr">class</span> <span class="nx">Middle</span> <span class="kr">implements</span> <span class="nx">Strategy</span><span class="p">{</span>
 
-<span class="err">$</span><span class="n">total</span> <span class="o">=</span> <span class="err">$</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">compute</span><span class="p">(</span><span class="mh">100</span><span class="p">);</span>
+        <span class="kr">public</span> <span class="kd">function</span> <span class="nx">computePrice</span><span class="p">(</span><span class="nx">$price</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement computePrice() method.</span>
+            <span class="k">return</span> <span class="nx">$price</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kr">class</span> <span class="nx">High</span> <span class="kr">implements</span> <span class="nx">Strategy</span><span class="p">{</span>
+
+        <span class="kr">public</span> <span class="kd">function</span> <span class="nx">computePrice</span><span class="p">(</span><span class="nx">$price</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement computePrice() method.</span>
+            <span class="k">return</span> <span class="nx">$price</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">    * Class Price 环境实现类</span>
+<span class="cm">    */</span>
+
+    <span class="kr">class</span> <span class="nx">Price</span><span class="p">{</span>
+        <span class="c1">// 具体策略对象</span>
+        <span class="kr">private</span> <span class="nx">$strategyInstance</span><span class="p">;</span>
+        <span class="c1">// 构造函数</span>
+        <span class="kr">public</span> <span class="kd">function</span> <span class="nx">__construct</span><span class="p">(</span><span class="nx">$instance</span><span class="p">){</span>
+            <span class="nx">$this</span><span class="o">-&gt;</span><span class="nx">strategyInstance</span> <span class="o">=</span> <span class="nx">$instance</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kr">public</span> <span class="kd">function</span> <span class="nx">compute</span><span class="p">(</span><span class="nx">$price</span><span class="p">){</span>
+            <span class="k">return</span> <span class="nx">$this</span><span class="o">-&gt;</span><span class="nx">strategyInstance</span><span class="o">-&gt;</span><span class="nx">computePrice</span><span class="p">(</span><span class="nx">$price</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">$p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Price</span><span class="p">(</span><span class="k">new</span> <span class="nx">High</span><span class="p">());</span>
+
+    <span class="nx">$total</span> <span class="o">=</span> <span class="nx">$p</span><span class="o">-&gt;</span><span class="nx">compute</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </pre></div>
 
 
-</li>
-</ol>
 <blockquote>
 <p>javascript 策略模式</p>
 </blockquote>

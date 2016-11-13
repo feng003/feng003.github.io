@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>设计模式之桥接模式(Bridge) - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Design pattern">Design pattern</a>&nbsp;»&nbsp;设计模式之桥接模式(Bridge)</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">设计模式之桥接模式(Bridge)</div>
+  <div id="content">
+  <blockquote>
+<p>环境</p>
+</blockquote>
+<div class="hlcode"><pre><span class="err">通用的日志记录工具</span> <span class="err">可以通过数据库记录，也可以通过文本文件记录。</span>
+</pre></div>
+
+
+<blockquote>
+<p>详解</p>
+</blockquote>
+<div class="hlcode"><pre><span class="err">为了应对系统多维度的变化</span>
+
+<span class="err">将抽象部分与实现部分分离，使它们都可以独立的变化。</span>
+</pre></div>
+
+
+<blockquote>
+<p>例子</p>
+</blockquote>
+<div class="hlcode"><pre><span class="err">把日志记录方式和不同平台上的实现分别当作两个独立的部分来对待</span>
+
+<span class="err">把这两部分之间连接起来</span>
+
+<span class="n">Bridge</span> <span class="err">使用了对象组合的方式</span>
+</pre></div>
+
+
+<blockquote>
+<p>php 桥接模式</p>
+</blockquote>
+<div class="hlcode"><pre>    <span class="cm">/**</span>
+<span class="cm">    * 抽象</span>
+<span class="cm">    * Class ARoad</span>
+<span class="cm">    */</span>
+    <span class="kr">abstract</span> <span class="kr">class</span> <span class="nx">ARoad</span>
+    <span class="p">{</span>
+        <span class="kr">public</span> <span class="nx">$car</span><span class="p">;</span>
+        <span class="kr">abstract</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">    * 具体</span>
+<span class="cm">    * Class SpeedRoad</span>
+<span class="cm">    */</span>
+    <span class="kr">class</span> <span class="nx">SpeedRoad</span> <span class="kr">extends</span> <span class="nx">ARoad</span>
+    <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement run() method.</span>
+            <span class="nx">$this</span><span class="o">-&gt;</span><span class="nx">car</span><span class="o">-&gt;</span><span class="nx">run</span><span class="p">();</span>
+            <span class="nx">echo</span> <span class="s2">&quot;speed&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kr">class</span> <span class="nx">StreetRoad</span> <span class="kr">extends</span> <span class="nx">ARoad</span>
+    <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement run() method.</span>
+            <span class="nx">$this</span><span class="o">-&gt;</span><span class="nx">car</span><span class="o">-&gt;</span><span class="nx">run</span><span class="p">();</span>
+            <span class="nx">echo</span> <span class="s2">&quot;street&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">    * 抽象</span>
+<span class="cm">    * Interface Car</span>
+<span class="cm">    */</span>
+    <span class="kr">interface</span> <span class="nx">Car</span>
+    <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">run</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kr">class</span> <span class="nx">Jeep</span> <span class="kr">implements</span> <span class="nx">Car</span>
+    <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement run() method.</span>
+            <span class="nx">echo</span> <span class="s2">&quot;jeep run&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kr">class</span> <span class="nx">Trunk</span> <span class="kr">implements</span> <span class="nx">Car</span>
+    <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement run() method.</span>
+            <span class="nx">echo</span> <span class="s2">&quot;trunk run&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">$speed</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SpeedRoad</span><span class="p">();</span>
+    <span class="nx">$speed</span><span class="o">-&gt;</span><span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Jeep</span><span class="p">();</span>
+    <span class="nx">$speed</span><span class="o">-&gt;</span><span class="nx">run</span><span class="p">();</span>
+
+    <span class="nx">$street</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StreetRoad</span><span class="p">();</span>
+    <span class="nx">$street</span><span class="o">-&gt;</span><span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Trunk</span><span class="p">();</span>
+    <span class="nx">$street</span><span class="o">-&gt;</span><span class="nx">run</span><span class="p">();</span>
+</pre></div>
+
+
+<blockquote>
+<p>javascript 桥接模式</p>
+</blockquote>
+<p><a href="http://blog.csdn.net/jhq0113/article/details/45441793">代码参考</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

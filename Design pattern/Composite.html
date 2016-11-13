@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>设计模式之组合模式(Composite) - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Design pattern">Design pattern</a>&nbsp;»&nbsp;设计模式之组合模式(Composite)</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">设计模式之组合模式(Composite)</div>
+  <div id="content">
+  <blockquote>
+<p>问题:</p>
+</blockquote>
+<ol>
+<li>
+<p>对于树形结构，当容器对象（如文件夹）的某一个方法被调用是，将遍历这个树形结构，寻找也包含这个方法的成员对象并调用执行。（实现文件夹的递归）</p>
+</li>
+<li>
+<p>客户端希望一致地处理容器对象和叶子对象</p>
+</li>
+</ol>
+<blockquote>
+<p>详解: Composite Pattern (整体-部分模式)</p>
+</blockquote>
+<ol>
+<li>
+<p>抽象组件类(Component 父类  接口)</p>
+</li>
+<li>
+<p>叶子节点类(Leaf 子类)</p>
+</li>
+<li>
+<p>独立集合类(Composite支干 子类)</p>
+</li>
+</ol>
+<blockquote>
+<p>php</p>
+</blockquote>
+<div class="hlcode"><pre>    <span class="cp">&lt;?php</span>
+    <span class="sd">/**</span>
+<span class="sd">    * Created by PhpStorm.</span>
+<span class="sd">    * User: zhang</span>
+<span class="sd">    * Date: 2016/10/24</span>
+<span class="sd">    * Time: 17:14</span>
+<span class="sd">    */</span>
+
+    <span class="k">abstract</span> <span class="k">class</span> <span class="nc">MenuComponent</span>
+    <span class="p">{</span>
+            <span class="k">public</span> <span class="nv">$name</span><span class="p">;</span>
+            <span class="k">public</span> <span class="k">abstract</span> <span class="k">function</span> <span class="nf">getName</span><span class="p">();</span>
+            <span class="k">public</span> <span class="k">abstract</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nx">MenuComponent</span> <span class="nv">$menu</span><span class="p">);</span>
+            <span class="k">public</span> <span class="k">abstract</span> <span class="k">function</span> <span class="nf">remove</span><span class="p">(</span><span class="nx">MenuComponent</span> <span class="nv">$menu</span><span class="p">);</span>
+            <span class="k">public</span> <span class="k">abstract</span> <span class="k">function</span> <span class="nf">getChild</span><span class="p">(</span><span class="nv">$i</span><span class="p">);</span>
+            <span class="k">public</span> <span class="k">abstract</span> <span class="k">function</span> <span class="nf">show</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">MenuItem</span> <span class="k">extends</span> <span class="nx">MenuComponent</span><span class="p">{</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">getName</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement getName() method.</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nx">MenuComponent</span> <span class="nv">$menu</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement add() method.</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">remove</span><span class="p">(</span><span class="nx">MenuComponent</span> <span class="nv">$menu</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement remove() method.</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">getChild</span><span class="p">(</span><span class="nv">$i</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement getChild() method.</span>
+            <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">show</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">// TODO: Implement show() method.</span>
+            <span class="k">echo</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">()</span><span class="o">.</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">Menu</span> <span class="k">extends</span> <span class="nx">MenuComponent</span><span class="p">{</span>
+            <span class="k">public</span> <span class="nv">$menuComponents</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+            <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">public</span> <span class="k">function</span> <span class="nf">getName</span><span class="p">()</span>
+            <span class="p">{</span>
+                <span class="c1">// TODO: Implement getName() method.</span>
+                <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nx">MenuComponent</span> <span class="nv">$menu</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="c1">// TODO: Implement add() method.</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">menuComponents</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$menu</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">public</span> <span class="k">function</span> <span class="nf">remove</span><span class="p">(</span><span class="nx">MenuComponent</span> <span class="nv">$menu</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="c1">// TODO: Implement remove() method.</span>
+                <span class="nv">$key</span> <span class="o">=</span> <span class="nb">array_search</span><span class="p">(</span><span class="nv">$menu</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">menuComponents</span><span class="p">);</span>
+                <span class="k">if</span><span class="p">(</span><span class="nv">$key</span> <span class="o">!==</span> <span class="k">false</span><span class="p">){</span><span class="nb">unset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">menuComponents</span><span class="p">[</span><span class="nv">$key</span><span class="p">]);}</span>
+            <span class="p">}</span>
+            <span class="k">public</span> <span class="k">function</span> <span class="nf">getChild</span><span class="p">(</span><span class="nv">$i</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="c1">// TODO: Implement getChild() method.</span>
+                <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">menuComponents</span><span class="p">[</span><span class="nv">$i</span><span class="p">]))</span> <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">menuComponents</span><span class="p">[</span><span class="nv">$i</span><span class="p">];</span>
+                <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">public</span> <span class="k">function</span> <span class="nf">show</span><span class="p">()</span>
+            <span class="p">{</span>
+                <span class="c1">// TODO: Implement show() method.</span>
+                <span class="k">echo</span> <span class="s2">&quot;#&quot;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">()</span><span class="o">.</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+                <span class="k">foreach</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">menuComponents</span> <span class="k">as</span> <span class="nv">$v</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nv">$v</span><span class="o">-&gt;</span><span class="na">show</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">testDriver</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="nv">$menu1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Menu</span><span class="p">(</span><span class="s1">&#39;文学&#39;</span><span class="p">);</span>
+            <span class="nv">$menuitem1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MenuItem</span><span class="p">(</span><span class="s1">&#39;绘画&#39;</span><span class="p">);</span>
+            <span class="nv">$menuitem2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MenuItem</span><span class="p">(</span><span class="s1">&#39;书法&#39;</span><span class="p">);</span>
+            <span class="nv">$menuitem3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MenuItem</span><span class="p">(</span><span class="s1">&#39;小说&#39;</span><span class="p">);</span>
+            <span class="nv">$menuitem4</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MenuItem</span><span class="p">(</span><span class="s1">&#39;雕刻&#39;</span><span class="p">);</span>
+            <span class="nv">$menu1</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$menuitem1</span><span class="p">);</span>
+            <span class="nv">$menu1</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$menuitem2</span><span class="p">);</span>
+            <span class="nv">$menu1</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$menuitem3</span><span class="p">);</span>
+            <span class="nv">$menu1</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$menuitem4</span><span class="p">);</span>
+            <span class="nv">$menu1</span><span class="o">-&gt;</span><span class="na">show</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nv">$test</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">testDriver</span><span class="p">();</span>
+    <span class="nv">$test</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
+</pre></div>
+
+
+<blockquote>
+<p>javascript</p>
+</blockquote>
+<p><a href="http://blog.sina.com.cn/s/blog_50a1e1740101eym1.html">php代码</a></p>
+<p><a href="http://laravelacademy.org/post/2699.html">参考文档</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
