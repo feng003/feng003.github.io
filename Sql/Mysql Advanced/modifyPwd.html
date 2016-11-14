@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>mysql modify password - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Sql">Sql</a>&nbsp;»&nbsp;<a href="/#Sql-Mysql Advanced">Mysql Advanced</a>&nbsp;»&nbsp;mysql modify password</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">mysql modify password</div>
+  <div id="content">
+  <blockquote>
+<p>ubuntu 修改mysql  root 密码</p>
+</blockquote>
+<div class="hlcode"><pre><span class="mf">1.</span> <span class="n">sudo</span> <span class="n">service</span> <span class="n">mysql</span> <span class="n">stop</span>
+<span class="mf">2.</span> <span class="n">sudo</span> <span class="n">mysqld_safe</span> <span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="n">mysql</span> <span class="o">--</span><span class="n">skip</span><span class="o">-</span><span class="n">grant</span><span class="o">-</span><span class="n">tables</span> <span class="o">--</span><span class="n">skip</span><span class="o">-</span><span class="n">networking</span>
+</pre></div>
+
+
+<p><img alt="password" src="./image/password.png" /></p>
+<div class="hlcode"><pre><span class="mf">3.</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">T</span><span class="err">重开一个终端以</span><span class="n">root</span><span class="err">身份登录</span><span class="n">mysql</span>
+<span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="n">mysql</span>
+<span class="n">update</span> <span class="n">user</span> <span class="n">set</span> <span class="n">password</span><span class="o">=</span><span class="n">PASSWORD</span><span class="p">(</span><span class="err">&#39;</span><span class="n">toor</span><span class="err">&#39;</span><span class="p">)</span> <span class="n">where</span> <span class="n">user</span><span class="o">=</span><span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span><span class="p">;</span>
+
+<span class="mf">4.</span> <span class="err">修改</span><span class="n">user</span><span class="err">表：</span><span class="n">root</span><span class="err">权限</span><span class="p">(</span><span class="n">Grant_priv</span><span class="p">)</span>
+<span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">user</span> <span class="n">where</span> <span class="n">user</span><span class="o">=</span><span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="n">update</span> <span class="n">user</span> <span class="n">set</span> <span class="n">Grant_priv</span><span class="o">=</span><span class="sc">&#39;Y&#39;</span> <span class="n">where</span> <span class="n">user</span><span class="o">=</span><span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span><span class="p">;</span>
+
+<span class="mf">5.</span> <span class="err">停止</span><span class="n">mysqld_safe</span><span class="p">,</span><span class="err">重启</span><span class="n">mysql</span>
+<span class="n">kill</span> <span class="o">-</span><span class="mi">9</span> <span class="n">mysqld_safe_pid</span>
+<span class="n">pkill</span> <span class="n">mysql</span>
+<span class="n">service</span> <span class="n">mysql</span> <span class="n">start</span>
+</pre></div>
+
+
+<blockquote>
+<p>查看进程</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">ps</span> <span class="o">-</span><span class="n">e</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">mysql</span>
+
+<span class="n">sudo</span> <span class="n">kill</span> <span class="n">pid</span>
+<span class="n">sudo</span>  <span class="n">kill</span> <span class="o">-</span><span class="mi">9</span> <span class="n">mysqld_safe_pid</span>
+</pre></div>
+
+
+<blockquote>
+<p>mysql终端查看</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">show</span> <span class="n">variables</span> <span class="n">like</span> <span class="err">&#39;</span><span class="n">log</span><span class="o">%</span><span class="err">&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>mysql show - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Sql">Sql</a>&nbsp;»&nbsp;<a href="/#Sql-Mysql Advanced">Mysql Advanced</a>&nbsp;»&nbsp;mysql show</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">mysql show</div>
+  <div id="content">
+  <blockquote>
+<ol>
+<li>show VARIABLES like "%slow%"</li>
+</ol>
+</blockquote>
+<div class="hlcode"><pre><span class="n">show</span> <span class="n">variables</span> <span class="n">like</span> <span class="err">&#39;</span><span class="n">log_output</span><span class="err">&#39;</span><span class="p">;</span>  <span class="c1">//确认日志信息输出到操作系统文件还是数据库的表中</span>
+
+<span class="n">set</span> <span class="n">global</span> <span class="n">slow_query_log</span>  <span class="o">=</span> <span class="n">on</span><span class="p">;</span>
+<span class="n">set</span> <span class="n">global</span> <span class="n">long_query_time</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">set</span> <span class="n">global</span> <span class="n">slow_query_log_file</span> <span class="o">=</span> <span class="s">&quot;/var/log/mysql-slow.log&quot;</span><span class="p">;</span>
+
+<span class="n">show</span> <span class="n">global</span> <span class="n">status</span> <span class="n">like</span> <span class="err">&#39;</span><span class="n">Slow_queries</span><span class="err">&#39;</span><span class="p">;</span>   <span class="c1">// 查询出现慢查询次数的累计值</span>
+</pre></div>
+
+
+<blockquote>
+<p>show</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">show</span> <span class="n">processlist</span><span class="p">;</span>
+<span class="n">show</span> <span class="n">status</span><span class="p">;</span>
+<span class="n">show</span> <span class="n">status</span> <span class="n">like</span> <span class="err">&#39;</span><span class="o">%</span><span class="err">下面变量</span><span class="o">%</span><span class="err">&#39;</span><span class="p">;</span>
+
+<span class="n">Connections</span> <span class="err">试图连接</span><span class="n">MySQL</span><span class="err">服务器的次数。</span>
+
+<span class="n">Created_tmp_tables</span> <span class="err">当执行语句时，已经被创造了的隐含临时表的数量。</span>
+<span class="n">Delayed_insert_threads</span> <span class="err">正在使用的延迟插入处理器线程的数量。</span>
+<span class="n">Delayed_writes</span> <span class="err">用</span><span class="n">INSERT</span> <span class="n">DELAYED</span><span class="err">写入的行数。</span>
+<span class="n">Delayed_errors</span> <span class="err">用</span><span class="n">INSERT</span> <span class="n">DELAYED</span><span class="err">写入的发生某些错误</span><span class="p">(</span><span class="err">可能重复键值</span><span class="p">)</span><span class="err">的行数。</span>
+
+<span class="n">Flush_commands</span> <span class="err">执行</span><span class="n">FLUSH</span><span class="err">命令的次数。</span>
+<span class="n">Handler_delete</span> <span class="err">请求从一张表中删除行的次数。</span>
+<span class="n">Handler_read_first</span> <span class="err">请求读入表中第一行的次数。</span>
+<span class="n">Handler_read_key</span> <span class="err">请求数字基于键读行。</span>
+<span class="n">Handler_read_next</span> <span class="err">请求读入基于一个键的一行的次数。</span>
+<span class="n">Handler_read_rnd</span> <span class="err">请求读入基于一个固定位置的一行的次数。</span>
+<span class="n">Handler_update</span> <span class="err">请求更新表中一行的次数。</span>
+<span class="n">Handler_write</span> <span class="err">请求向表中插入一行的次数。</span>
+<span class="n">Key_blocks_used</span> <span class="err">用于关键字缓存的块的数量。</span>
+</pre></div>
+
+
+<blockquote>
+<p>my.conf</p>
+</blockquote>
+<div class="hlcode"><pre><span class="k">[mysqld]</span>
+
+<span class="na">log-slow-queries</span> <span class="o">=</span> <span class="s">/usr/local/mysql/var/slowquery.log</span>
+<span class="na">long_query_time</span> <span class="o">=</span> <span class="s">1  #单位是秒</span>
+<span class="err">log-queries-not-using-indexes</span>
+</pre></div>
+
+
+<blockquote>
+<p>mysqldumpslow –help</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">mysql</span><span class="o">/</span><span class="n">bin</span><span class="err">目录，输入</span> <span class="n">mysqldumpslow</span> <span class="err">–</span><span class="n">help</span> <span class="err">或</span><span class="o">--</span><span class="n">help</span><span class="err">可以看到这个工具的参数</span>
+
+<span class="n">mysqldumpslow</span>  <span class="p">[</span> <span class="n">OPTS</span><span class="p">...</span> <span class="p">]</span> <span class="p">[</span> <span class="n">LOGS</span><span class="p">...</span> <span class="p">]</span>
+
+<span class="o">-</span><span class="n">s</span>  <span class="n">ORDER</span>     <span class="n">what</span> <span class="n">to</span> <span class="n">sort</span> <span class="n">by</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">at</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">al</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">ar</span> <span class="n">etc</span><span class="p">),</span> <span class="err">&#39;</span><span class="n">at</span><span class="err">&#39;</span> <span class="n">is</span> <span class="k">default</span>
+
+<span class="o">-</span><span class="n">t</span> <span class="n">NUM</span>       <span class="n">just</span> <span class="n">show</span> <span class="n">the</span> <span class="n">top</span> <span class="n">n</span> <span class="n">queries</span>
+
+<span class="o">-</span><span class="n">r</span>           <span class="n">reverse</span> <span class="n">the</span> <span class="n">sort</span> <span class="n">order</span> <span class="p">(</span><span class="n">largest</span> <span class="n">last</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">first</span><span class="p">)</span>
+
+<span class="n">mysqldumpslow</span> <span class="o">-</span><span class="n">s</span> <span class="n">c</span> <span class="o">-</span><span class="n">t</span> <span class="mi">20</span> <span class="n">host</span><span class="o">-</span><span class="n">slow</span><span class="p">.</span><span class="n">log</span>
+<span class="n">mysqldumpslow</span> <span class="o">-</span><span class="n">s</span> <span class="n">r</span> <span class="o">-</span><span class="n">t</span> <span class="mi">20</span> <span class="n">host</span><span class="o">-</span><span class="n">slow</span><span class="p">.</span><span class="n">log</span>
+</pre></div>
+
+
+<p><a href="http://blog.csdn.net/wenbingcai/article/details/40340867">参考文档1</a></p>
+<p><a href="http://blog.chinaunix.net/uid-16844903-id-332524.html">参考文档2</a></p>
+<p><a href="http://www.2cto.com/database/201210/162509.html">参考地址3</a></p>
+<p><a href="http://blog.jobbole.com/105792/">参考文档4</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

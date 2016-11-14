@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>mysql  explain - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Sql">Sql</a>&nbsp;»&nbsp;<a href="/#Sql-Mysql Advanced">Mysql Advanced</a>&nbsp;»&nbsp;mysql  explain</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">mysql  explain</div>
+  <div id="content">
+  <blockquote>
+<p>创建表</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">create</span> <span class="n">table</span> <span class="nf">test</span><span class="p">(</span><span class="n">a</span> <span class="kt">int</span><span class="p">,</span><span class="n">b</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="n">c</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
+</pre></div>
+
+
+<blockquote>
+<p>创建索引</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">create</span> <span class="n">index</span> <span class="n">idx_a_b</span> <span class="n">on</span> <span class="nf">test</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</pre></div>
+
+
+<blockquote>
+<p>EXPLAIN           explain tbl_name;</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">explain</span> <span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">event</span><span class="p">;</span>
+
+<span class="nl">id:</span>                   <span class="n">select</span><span class="err">查询的序列号</span>
+<span class="nl">select_type:</span>    <span class="n">select</span><span class="err">查询的类型，主要是区别普通查询和联合查询、子查询之类的复杂查询。</span>
+<span class="nl">table:</span>              <span class="err">输出的行所引用的表。</span>
+<span class="nl">type:</span>               <span class="err">联合查询所使用的类型。结果值从好到坏依次是：</span>
+
+    <span class="n">system</span><span class="p">(</span><span class="err">系统表</span><span class="p">)</span> <span class="o">&gt;</span>
+    <span class="k">const</span><span class="p">(</span><span class="err">通过索引一次就找到</span><span class="p">)</span> <span class="o">&gt;</span>
+    <span class="n">eq_ref</span><span class="p">(</span><span class="err">通过主键或者唯一键索引来访问</span><span class="p">)</span> <span class="o">&gt;</span>
+    <span class="n">ref</span> <span class="p">(</span><span class="err">多个行匹配</span><span class="p">)</span><span class="o">&gt;</span>
+    <span class="n">fulltext</span> <span class="o">&gt;</span>
+    <span class="n">ref_or_null</span> <span class="o">&gt;</span>
+    <span class="n">index_merge</span><span class="p">(</span><span class="err">查询中同时使用两个（或更多）索引</span><span class="p">)</span> <span class="o">&gt;</span>
+    <span class="n">unique_subquery</span><span class="p">(</span><span class="err">子查询中的返回结果字段组合是主键或者唯一约束</span><span class="p">)</span> <span class="o">&gt;</span>
+    <span class="n">index_subquery</span> <span class="o">&gt;</span>
+    <span class="n">range</span><span class="p">(</span><span class="err">索引范围扫描</span><span class="p">)</span> <span class="o">&gt;</span>
+    <span class="n">index</span><span class="p">(</span><span class="err">全索引扫描</span><span class="p">)</span> <span class="o">&gt;</span>
+    <span class="n">ALL</span><span class="p">(</span><span class="err">全表扫描</span><span class="p">)</span>
+<span class="err">一般来说，得保证查询至少达到</span><span class="n">range</span><span class="err">级别，最好能达到</span><span class="n">ref</span><span class="err">。</span>
+
+<span class="nl">possible_keys:</span>      <span class="err">指出</span><span class="n">MySQL</span><span class="err">能使用哪个索引在该表中找到行。如果是空的，没有相关的索引。这时要提高性能，可通过检验</span><span class="n">WHERE</span><span class="err">子句，看是否引用某些字段，或者检查字段不是适合索引。</span>
+<span class="nl">key:</span>                      <span class="err">显示</span><span class="n">MySQL</span><span class="err">实际决定使用的键。如果没有索引被选择，键是</span><span class="nb">NULL</span><span class="err">，使用了主键，键是</span><span class="n">primary</span><span class="err">。</span>
+<span class="nl">key_len:</span>               <span class="err">显示</span><span class="n">MySQL</span><span class="err">决定使用的键长度。如果键是</span><span class="nb">NULL</span><span class="err">，长度就是</span><span class="nb">NULL</span><span class="err">。文档提示特别注意这个值可以得出一个多重主键里</span><span class="n">mysql</span><span class="err">实际使用了哪一部分。</span>
+<span class="nl">ref:</span>                      <span class="err">显示哪个字段或常数与</span><span class="n">key</span><span class="err">一起被使用。</span>
+</pre></div>
+
+
+<h3 id="rowsmysqlinnodb">rows:这个数表示mysql要遍历多少数据才能找到，在innodb上是不准确的。</h3>
+<div class="hlcode"><pre><span class="nl">Extra:</span>
+<span class="err">如果是</span><span class="n">Only</span> <span class="n">index</span><span class="err">，这意味着信息只用索引树中的信息检索出的，这比扫描整个表要快。</span>
+<span class="err">如果是</span><span class="n">Using</span> <span class="n">where</span><span class="err">，就是使用上了</span><span class="n">where</span><span class="err">限制。</span>
+<span class="err">如果是</span><span class="n">impossible</span> <span class="n">where</span> <span class="err">表示用不着</span><span class="n">where</span><span class="err">，一般就是没查出来啥。</span>
+<span class="err">如果此信息显示</span><span class="n">Using</span> <span class="n">filesort</span><span class="err">或者</span><span class="n">Using</span> <span class="n">temporary</span><span class="err">的话会很吃力，</span><span class="n">WHERE</span><span class="err">和</span><span class="n">ORDER</span> <span class="n">BY</span><span class="err">的索引经常无法兼顾，如果按照</span><span class="n">WHERE</span><span class="err">来确定索引，那么在</span><span class="n">ORDER</span> <span class="n">BY</span><span class="err">时，就必然会引起</span><span class="n">Using</span> <span class="n">filesort</span><span class="err">，这就要看是先过滤再排序划算，还是先排序再过滤划算。</span>
+</pre></div>
+
+
+<p><img alt="image" src="http://wechat-01.oss-cn-qingdao.aliyuncs.com/mysql/explain.png" /></p>
+<div class="hlcode"><pre><span class="n">EXPLAIN</span> <span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">user</span> <span class="n">LEFT</span> <span class="n">JOIN</span> <span class="n">money_log</span> <span class="n">ON</span> <span class="err">`</span><span class="n">user</span><span class="err">`</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">money_log</span><span class="p">.</span><span class="n">userid</span> <span class="n">where</span> <span class="err">`</span><span class="n">user</span><span class="err">`</span><span class="p">.</span><span class="n">username</span><span class="o">=</span> <span class="err">&#39;</span><span class="mi">888888</span><span class="err">&#39;</span><span class="p">;</span>
+</pre></div>
+
+
+<h3 id="money_log-username">给money_log表 username添加索引之后的查询</h3>
+<p><img alt="image" src="http://wechat-01.oss-cn-qingdao.aliyuncs.com/mysql/explain3.png" /></p>
+<div class="hlcode"><pre><span class="n">EXPLAIN</span> <span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">user</span> <span class="n">LEFT</span> <span class="n">JOIN</span> <span class="n">money_log</span> <span class="n">ON</span> <span class="err">`</span><span class="n">user</span><span class="err">`</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">money_log</span><span class="p">.</span><span class="n">userid</span> <span class="n">where</span> <span class="err">`</span><span class="n">user</span><span class="err">`</span><span class="p">.</span><span class="n">username</span><span class="o">=</span> <span class="err">&#39;</span><span class="mi">888888</span><span class="err">&#39;</span><span class="p">;</span>
+</pre></div>
+
+
+<p><img alt="image" src="http://wechat-01.oss-cn-qingdao.aliyuncs.com/mysql/explain2.png" /></p>
+<div class="hlcode"><pre><span class="n">EXPLAIN</span> <span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">user</span> <span class="n">LEFT</span> <span class="n">JOIN</span> <span class="n">money_log</span> <span class="n">ON</span> <span class="err">`</span><span class="n">user</span><span class="err">`</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">money_log</span><span class="p">.</span><span class="n">userid</span> <span class="n">where</span> <span class="err">`</span><span class="n">money_log</span><span class="err">`</span><span class="p">.</span><span class="n">userid</span><span class="o">=</span> <span class="err">&#39;</span><span class="mi">888888</span><span class="err">&#39;</span><span class="p">;</span>
+</pre></div>
+
+
+<p><a href="http://dev.mysql.com/doc/refman/5.5/en/explain-output.html">官网文档</a></p>
+<p><a href="http://www.phpthinking.com/archives/785">参考文档1</a></p>
+<p><a href="http://www.cnblogs.com/kongzhongqijing/articles/3544020.html">参考文档2</a></p>
+<p><a href="http://blog.jobbole.com/105796/">参考文档3</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

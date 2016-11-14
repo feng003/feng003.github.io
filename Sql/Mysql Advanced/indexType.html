@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>mysql  index type - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Sql">Sql</a>&nbsp;»&nbsp;<a href="/#Sql-Mysql Advanced">Mysql Advanced</a>&nbsp;»&nbsp;mysql  index type</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">mysql  index type</div>
+  <div id="content">
+  <blockquote>
+<p>mysql index type</p>
+</blockquote>
+<ol>
+<li>
+<p>普通索引</p>
+<div class="hlcode"><pre><span class="n">create</span> <span class="n">index</span> <span class="n">indexname</span> <span class="n">ON</span> <span class="nf">table</span><span class="p">(</span><span class="n">username</span><span class="p">(</span><span class="n">length</span><span class="p">));</span>
+
+<span class="n">alter</span> <span class="n">table</span> <span class="n">add</span> <span class="n">index</span> <span class="p">[</span><span class="n">indexname</span><span class="p">]</span> <span class="n">ON</span> <span class="p">(</span><span class="n">username</span><span class="p">(</span><span class="n">length</span><span class="p">));</span>
+
+<span class="n">create</span> <span class="n">table</span> <span class="nf">tablenane</span><span class="p">(</span>
+    <span class="n">id</span> <span class="kt">int</span> <span class="n">not</span> <span class="n">null</span><span class="p">,</span>
+    <span class="n">username</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="n">not</span> <span class="n">null</span><span class="p">,</span>
+    <span class="n">index</span> <span class="p">[</span><span class="n">indexname</span><span class="p">]</span> <span class="p">(</span><span class="n">username</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+<span class="p">);</span>
+</pre></div>
+
+
+<p>drop index [indexname] ON table;</p>
+</li>
+<li>
+<p>唯一索引 唯一索引值必须唯一，但准许有空值。</p>
+<div class="hlcode"><pre><span class="n">create</span> <span class="n">unique</span> <span class="n">index</span> <span class="p">[</span><span class="n">indexname</span><span class="p">]</span> <span class="n">on</span> <span class="n">table</span><span class="p">(</span><span class="n">username</span><span class="p">(</span><span class="n">length</span><span class="p">));</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>主键索引 primary key</p>
+</li>
+<li>
+<p>组合索引 将 name, city, age建到一个索引。</p>
+<div class="hlcode"><pre><span class="n">create</span> <span class="n">table</span> <span class="nf">tablenane</span><span class="p">(</span>
+    <span class="n">id</span> <span class="kt">int</span> <span class="n">not</span> <span class="n">null</span><span class="p">,</span>
+    <span class="n">username</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="n">not</span> <span class="n">null</span><span class="p">,</span>
+    <span class="n">city</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="n">not</span> <span class="n">null</span><span class="p">,</span>
+    <span class="n">age</span> <span class="kt">int</span> <span class="n">not</span> <span class="n">null</span>
+<span class="p">),</span>
+
+<span class="n">alter</span> <span class="n">table</span> <span class="n">tablename</span> <span class="n">add</span> <span class="n">index</span> <span class="n">name_city_age</span><span class="p">(</span><span class="n">name</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="n">city</span><span class="p">,</span><span class="n">age</span><span class="p">);</span>
+</pre></div>
+
+
+</li>
+</ol>
+<h4 id="_1">建立这样的组合索引，其实是相当于分别建立了下面三组组合索引：</h4>
+<div class="hlcode"><pre><span class="n">username</span> <span class="n">city</span> <span class="n">age</span>
+<span class="n">username</span> <span class="n">city</span>
+<span class="n">username</span>
+</pre></div>
+
+
+<p><a href="http://database.51cto.com/art/200910/156685.htm">参考文档</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

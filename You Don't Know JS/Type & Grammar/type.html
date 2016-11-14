@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>javascript type casting or coercion (类型转换) - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#You Don't Know JS">You Don't Know JS</a>&nbsp;»&nbsp;<a href="/#You Don't Know JS-Type & Grammar">Type & Grammar</a>&nbsp;»&nbsp;javascript type casting or coercion (类型转换)</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">javascript type casting or coercion (类型转换)</div>
+  <div id="content">
+  <blockquote>
+<p>值类型对象</p>
+</blockquote>
+<ol>
+<li>implicit coercion(隐式)</li>
+<li>explicit coercion(显式)<div class="hlcode"><pre><span class="n">var</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>         <span class="n">typeof</span> <span class="n">a</span> <span class="c1">// number</span>
+<span class="n">var</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="p">;</span>   <span class="n">typeof</span> <span class="n">b</span> <span class="c1">// string   隐式</span>
+<span class="n">var</span> <span class="n">c</span> <span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>  <span class="n">typeof</span> <span class="n">c</span> <span class="c1">// string  显式</span>
+</pre></div>
+
+
+</li>
+</ol>
+<blockquote>
+<p>抽象值操作</p>
+</blockquote>
+<ol>
+<li>ToString</li>
+</ol>
+<p><strong>toString()</strong></p>
+<div class="hlcode"><pre>    <span class="n">var</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">];</span>
+    <span class="n">a</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>stringify()</strong></p>
+<div class="hlcode"><pre>    <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="s2">&quot;40&quot;</span><span class="p">)</span>   <span class="c1">// &quot;&quot;40&quot;&quot;</span>
+    <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>   <span class="c1">// &quot;true&quot;</span>
+    <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="kd">function</span><span class="p">(){})</span> <span class="c1">// undefined</span>
+    <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="cp">[</span><span class="mi">1</span><span class="p">,</span><span class="nx">undefined</span><span class="p">,</span><span class="nx">function</span><span class="p">(){}</span><span class="cp">]</span><span class="p">)</span>  <span class="c1">// &quot;</span><span class="cp">[</span><span class="mi">1</span><span class="p">,</span><span class="kt">null</span><span class="p">,</span><span class="kt">null</span><span class="cp">]</span><span class="c1">&quot;</span>
+</pre></div>
+
+
+<p><strong>toJSON()</strong></p>
+<p>2.ToNumber</p>
+<div class="hlcode"><pre>    <span class="n">Number</span><span class="p">(</span><span class="n">undefined</span><span class="p">)</span>  <span class="c1">//  NaN</span>
+    <span class="n">Number</span><span class="p">(</span><span class="s">&quot;aa&quot;</span><span class="p">)</span>         <span class="c1">// NaN</span>
+    <span class="n">Number</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>       <span class="c1">// 1</span>
+    <span class="n">Number</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>     <span class="c1">// 0</span>
+    <span class="n">Number</span><span class="p">(</span><span class="n">null</span><span class="p">)</span>      <span class="c1">// 0</span>
+</pre></div>
+
+
+<ol>
+<li>ToBoolean</li>
+</ol>
+<blockquote>
+<p>显式强制类型转换</p>
+</blockquote>
+<ol>
+<li>字符串和数字</li>
+<li>显示解析数字字符串</li>
+<li>显示转换为布尔值</li>
+</ol>
+<blockquote>
+<p>隐式强制类型转换</p>
+</blockquote>
+<ol>
+<li>隐式地简化</li>
+<li>字符串和数字</li>
+<li>布尔值到数字</li>
+<li>隐式强制类型转换为布尔值</li>
+<li>|| 和 &amp;&amp;</li>
+<li>符号的强制类型转换</li>
+</ol>
+<blockquote>
+<p>宽松相等(==)和严格相等(===)</p>
+</blockquote>
+<p><strong>"== 允许在相等比较中进行强制类型转换，而 === 不允许"</strong></p>
+<blockquote>
+<p>抽象关系比较</p>
+</blockquote>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>mysql process lock - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Sql">Sql</a>&nbsp;»&nbsp;<a href="/#Sql-Mysql Advanced">Mysql Advanced</a>&nbsp;»&nbsp;mysql process lock</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">mysql process lock</div>
+  <div id="content">
+  <blockquote>
+<p>处理死锁</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">SHOW</span> <span class="n">PROCESSLIST</span><span class="p">;</span>  <span class="c1">//显示哪些线程正在运行</span>
+
+<span class="n">SELECT</span> <span class="nf">CONNECTION_ID</span><span class="p">();</span>
+
+ <span class="n">SHOW</span> <span class="n">ENGINE</span> <span class="n">INNODB</span> <span class="n">STATUS</span><span class="p">;</span>  <span class="c1">//显示innoDB存储引擎的状态</span>
+
+ <span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">INNODB_TRX</span>   <span class="c1">//查看有是哪些事务占据了表资源</span>
+
+ <span class="n">innodb_lock_wait</span> <span class="err">锁</span> <span class="err">等待</span>
+</pre></div>
+
+
+<blockquote>
+<p>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction</p>
+</blockquote>
+<h3 id="information_schema">去information_schema数据库中执行：</h3>
+<ol>
+<li>desc innodb_locks</li>
+</ol>
+<p><img alt="innodb_locks" src="http://wechat-01.oss-cn-qingdao.aliyuncs.com/mysql/innodb_locks.png" />;</p>
+<ol>
+<li>desc innodb_lock_waits;</li>
+</ol>
+<p><img alt="innodb_lock_waits" src="http://wechat-01.oss-cn-qingdao.aliyuncs.com/mysql/innodb_lock_waits.png" />;</p>
+<ol>
+<li>desc innodb_trx;</li>
+</ol>
+<p><img alt="innodb_trx" src="http://wechat-01.oss-cn-qingdao.aliyuncs.com/mysql/innodb_trx.png" />;</p>
+<div class="hlcode"><pre><span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">innodb_trx</span><span class="p">;</span>
+<span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">innodb_lock_waits</span><span class="p">;</span>
+<span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">innodb_locks</span><span class="p">;</span>
+</pre></div>
+
+
+<p><a href="http://blog.csdn.net/lemonyfei/article/details/11897851">命令文档</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_6bb63c9e0100s7cb.html">参考文档</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

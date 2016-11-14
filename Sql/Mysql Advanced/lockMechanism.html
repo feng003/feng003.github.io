@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>mysql lock mechanism - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#Sql">Sql</a>&nbsp;»&nbsp;<a href="/#Sql-Mysql Advanced">Mysql Advanced</a>&nbsp;»&nbsp;mysql lock mechanism</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">mysql lock mechanism</div>
+  <div id="content">
+  <blockquote>
+<p>mysql 多用户 多线程的关系型数据库</p>
+</blockquote>
+<ol>
+<li>
+<p>一次性封锁 与 两段锁</p>
+<p>一次性封锁：sql语句的开始执行的时候，已预先知道要涉及那些数据，然后全部锁住，执行完毕之后，再全部解锁！</p>
+<p>两段锁：每个事务的执行分为两个阶段：加锁阶段 和 解锁阶段。</p>
+<p>加锁阶段：在对任何数据进行读操作之前要申请并获得S锁(读锁 共享锁)，进行写操作之前要申请并获得X锁(写锁 排它锁)。加锁不成功，则事务进入等待状态，直到加锁成功才继续执行。</p>
+<p>解锁阶段：当事务释放一个封锁以后，事务进入解锁阶段。</p>
+</li>
+<li>
+<p>锁定机制</p>
+</li>
+</ol>
+<h4 id="_1">行级锁定</h4>
+<div class="hlcode"><pre><span class="n">innodb</span><span class="err">的锁是建立在索引基础上的，必要的时候会由行锁升级为表锁，所以，</span><span class="n">innodb</span><span class="err">既支持表锁也支持行锁</span>
+
+<span class="err">由于锁定资源的颗粒度很小，所以每次获取锁和释放锁需要做的事情也很多，带来的消耗自然也就更大。行级锁定也最容易死锁。</span>
+</pre></div>
+
+
+<h4 id="_2">表级锁定</h4>
+<div class="hlcode"><pre><span class="n">myisam</span>
+</pre></div>
+
+
+<h4 id="_3">页级锁定</h4>
+<div class="hlcode"><pre><span class="n">BDB</span><span class="err">存储引擎采用的是页面锁（</span><span class="n">page</span><span class="o">-</span><span class="n">level</span> <span class="n">locking</span><span class="err">），但也支持表级锁</span>
+</pre></div>
+
+
+<ol>
+<li>实例<div class="hlcode"><pre><span class="n">lock</span> <span class="n">table</span> <span class="n">tablename</span> <span class="n">write</span><span class="p">;</span>        <span class="n">unlock</span> <span class="n">tables</span><span class="p">;</span>
+
+<span class="n">lock</span> <span class="n">table</span> <span class="n">tablename</span> <span class="n">read</span><span class="p">;</span>         <span class="n">unlock</span> <span class="n">tables</span><span class="p">;</span>
+
+<span class="n">lock</span> <span class="n">table</span> <span class="n">tablename</span> <span class="n">read</span> <span class="n">local</span><span class="p">;</span>    <span class="n">unlock</span> <span class="n">tables</span><span class="p">;</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p><a href="https://segmentfault.com/a/1190000004507047">参考文档</a></p>
+<p><a href="http://tech.meituan.com/innodb-lock.html">参考文档</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2016 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
