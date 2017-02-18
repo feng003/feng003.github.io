@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>es6之Iterator - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#es6">es6</a>&nbsp;»&nbsp;es6之Iterator</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">es6之Iterator</div>
+  <div id="content">
+  <blockquote>
+<p>Iterator 遍历器对象本质上就是一个指针对象，是一种接口，为不同的数据结构提供统一的访问机制。</p>
+</blockquote>
+<ol>
+<li>为各种数据结构提供一个统一的、简便的访问接口</li>
+<li>使得数据结构的成员能够按某种次序排列</li>
+<li>for...of循环<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">makeIterator</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">nextIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">next</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="k">return</span> <span class="nx">nextIndex</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">?</span>
+            <span class="p">{</span><span class="nx">value</span><span class="o">:</span><span class="nx">array</span><span class="cp">[</span><span class="nx">nextIndex</span><span class="o">++</span><span class="cp">]</span><span class="p">,</span><span class="nx">done</span><span class="o">:</span><span class="kc">false</span><span class="p">}</span> <span class="o">:</span>
+            <span class="p">{</span><span class="nx">value</span><span class="o">:</span><span class="kc">undefined</span><span class="p">,</span><span class="nx">done</span><span class="o">:</span><span class="kc">true</span><span class="p">};</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">it</span> <span class="o">=</span> <span class="nx">makeIterator</span><span class="p">(</span><span class="cp">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="cp">]</span><span class="p">);</span>
+<span class="nx">it</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+</pre></div>
+
+
+</li>
+</ol>
+<h5 id="symboliteratoriterator">凡是部署了Symbol.iterator属性的数据结构，就称为部署了遍历器接口。调用这个接口，就会返回一个遍历器对象。(数组具备Iterator接口，而对象不具备)</h5>
+<blockquote>
+<p>数据结构的默认Iterator接口</p>
+</blockquote>
+<h5 id="es6iteratorsetmap">es6中，三类数据结构原生具备Iterator接口：数组、某些类似数组的对象以及Set和Map结构</h5>
+<div class="hlcode"><pre>    <span class="n">let</span> <span class="n">arr</span>  <span class="o">=</span> <span class="p">[</span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="sc">&#39;v&#39;</span><span class="p">,</span><span class="sc">&#39;b&#39;</span><span class="p">];</span>
+    <span class="n">let</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">Symbol</span><span class="p">.</span><span class="n">iterator</span><span class="p">]();</span>
+    <span class="n">iter</span><span class="p">.</span><span class="n">next</span><span class="p">();</span>
+</pre></div>
+
+
+<blockquote>
+<p>调用Iterator接口的场合</p>
+</blockquote>
+<ol>
+<li>
+<p>解构赋值</p>
+<div class="hlcode"><pre><span class="n">let</span> <span class="n">set</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Set</span><span class="p">().</span><span class="n">add</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">).</span><span class="n">add</span><span class="p">(</span><span class="sc">&#39;b&#39;</span><span class="p">).</span><span class="n">add</span><span class="p">(</span><span class="sc">&#39;c&#39;</span><span class="p">);</span>
+<span class="n">let</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,]</span> <span class="o">=</span> <span class="n">set</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>扩展运算符</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;javascript&quot;</span><span class="p">;</span>
+<span class="p">[...</span><span class="n">str</span><span class="p">];</span>
+</pre></div>
+
+
+</li>
+</ol>
+<blockquote>
+<p>字符串的Iterator接口</p>
+</blockquote>
+<div class="hlcode"><pre>    <span class="n">var</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;javascript&quot;</span><span class="p">;</span>
+    <span class="n">typeof</span> <span class="n">str</span><span class="p">[</span><span class="n">Symbol</span><span class="p">.</span><span class="n">iterator</span><span class="p">];</span>
+    <span class="n">var</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">str</span><span class="p">[</span><span class="n">Symbol</span><span class="p">.</span><span class="n">iterator</span><span class="p">]();</span>
+    <span class="n">iterator</span><span class="p">.</span><span class="n">next</span><span class="p">();</span>
+    <span class="n">iterator</span><span class="p">.</span><span class="n">next</span><span class="p">();</span>
+</pre></div>
+
+
+<blockquote>
+<p>Iterator接口与Generator函数</p>
+<p>遍历器对象的 return()、throw()</p>
+<p>for...of循环</p>
+</blockquote>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
