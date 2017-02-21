@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>es6之异步操作和async函数 - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#es6">es6</a>&nbsp;»&nbsp;es6之异步操作和async函数</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">es6之异步操作和async函数</div>
+  <div id="content">
+  <blockquote>
+<p>概念</p>
+<p>Generator函数</p>
+</blockquote>
+<ol>
+<li>
+<p>Generator</p>
+</li>
+<li>
+<p>Generator函数体内外的数据交换和错误处理机制</p>
+</li>
+<li>
+<p>异步任务的封装</p>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;node-fetch&#39;</span><span class="p">);</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">gen</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;index.json&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">yield</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nx">gen</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+<span class="nx">result</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">data</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+    <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+
+</li>
+</ol>
+<blockquote>
+<p>Thunk函数 求值策略：传值调用(C) 和 传名调用(Haskell)</p>
+</blockquote>
+<ol>
+<li>Thunk函数的含义</li>
+</ol>
+<h5 id="thunk">编译器的“传名调用”实现往往是先将参数放到一个临时函数中，再将这个临时函数传入函数体，这个临时函数就叫做Thunk函数</h5>
+<ol>
+<li>
+<p>javascript语言的Thunk函数</p>
+</li>
+<li>
+<p>Thunk函数现在用于Generator函数的自动流程管理</p>
+</li>
+</ol>
+<blockquote>
+<p>co 模块  用于Generator函数的自动执行</p>
+</blockquote>
+<div class="hlcode"><pre>        <span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">co</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;co&#39;</span><span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fileName</span><span class="p">){</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resole</span><span class="p">,</span><span class="nx">reject</span><span class="p">){</span>
+                <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+                    <span class="nx">resolve</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+        <span class="p">};</span>
+        <span class="nx">co</span><span class="p">(</span><span class="nx">gen</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Generator函数传入co函数就会自动执行&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+</pre></div>
+
+
+<blockquote>
+<p>async 是Generator函数的语法糖</p>
+</blockquote>
+<ol>
+<li>async定义<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fileName</span><span class="p">){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resole</span><span class="p">,</span><span class="nx">reject</span><span class="p">){</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+            <span class="nx">resolve</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+<span class="c1">//generator</span>
+<span class="kd">var</span> <span class="nx">gen</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span> <span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">f1</span> <span class="o">=</span> <span class="nx">yield</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;/etc/fstab&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">f2</span> <span class="o">=</span> <span class="nx">yield</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;/etc/shells&#39;</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f2</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="p">};</span>
+<span class="c1">//async</span>
+<span class="kd">var</span> <span class="nx">asyncReadFile</span> <span class="o">=</span> <span class="nx">async</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">f1</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;/etc/fstab&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">f2</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;/etc/shells&#39;</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f2</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+</ol>
+<h5 id="asyncgeneratorco">async函数自带执行器，generator函数的执行靠执行器(co模块)</h5>
+<h5 id="asyncawait">async表示函数有异步操作，await表示紧跟在后面的表达式需要等待结果</h5>
+<h5 id="coyieldthunkpromiseasyncawaitpromise">co模块约定，yield命令后面只能是Thunk函数或Promise对象，而async函数的await命令后面可以是Promise对象和原始类型的值(数值、字符串和布尔值，但这时等同于同步操作)</h5>
+<h5 id="asyncpromisethengeneratoriterator">async函数的返回值是Promise对象，可以用then方法指定下一步操作；而Generator函数返回值是Iterator对象</h5>
+<ol>
+<li>
+<p>async函数的实现</p>
+<div class="hlcode"><pre><span class="nx">async</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>async函数的用法</p>
+<div class="hlcode"><pre><span class="nx">async</span> <span class="kd">function</span> <span class="nx">getStockPriceByName</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">symbol</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">getStockSymbol</span><span class="p">(</span><span class="nx">name</span><span class="p">).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">stockPrice</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">getStockPrice</span><span class="p">(</span><span class="nx">symbol</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">stockPrice</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">getStockPriceByName</span><span class="p">(</span><span class="s1">&#39;Jan&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">reuslt</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+
+</li>
+</ol>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
