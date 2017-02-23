@@ -23,75 +23,75 @@
   <blockquote>
 <p>1、闭包定义：当函数可以<strong>记住并访问</strong>所在的 词法作用域时，就产生了闭包，即使函数是在当前词法作用域之外执行。</p>
 </blockquote>
-<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
-    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">a</span> <span class="p">);</span>
-    <span class="p">}</span>
-    <span class="nx">bar</span><span class="p">();</span>   <span class="c1">// 函数bar() 可以访问外部作用域中的 变量a</span>
-<span class="p">}</span>
-<span class="nx">foo</span><span class="p">();</span>
+<div class="hlcode"><pre>        <span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+            <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">a</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nx">bar</span><span class="p">();</span>   <span class="c1">// 函数bar() 可以访问外部作用域中的 变量a</span>
+        <span class="p">}</span>
+        <span class="nx">foo</span><span class="p">();</span>
 
-<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="nx">funtion</span> <span class="nx">bar</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">();</span>
-<span class="nx">baz</span><span class="p">();</span>  <span class="c1">// 2 闭包的效果</span>
+        <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+            <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span>
+            <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">();</span>
+        <span class="nx">baz</span><span class="p">();</span>  <span class="c1">// 2 闭包的效果</span>
 
-<span class="nx">bar</span><span class="p">()</span><span class="err">所引用的函数对象本身当作返回值</span>
+        <span class="nx">bar</span><span class="p">()</span><span class="err">所引用的函数对象本身当作返回值</span>
 </pre></div>
 
 
 <blockquote>
 <p>2、本质上，如果将(访问他们各自词法作用域的)函数当作第一级的值类型并到处传递，你就会看到闭包在函数中的应用。比如：定时器、事件监听器、ajax请求、跨窗口通信、web workers，只要使用了回调函数，就是在使用闭包。</p>
 </blockquote>
-<div class="hlcode"><pre>  <span class="kd">function</span> <span class="nx">wait</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
-  <span class="p">{</span>
-      <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
-          <span class="p">},</span><span class="mi">1000</span><span class="p">);</span>
-  <span class="p">}</span>
+<div class="hlcode"><pre>        <span class="kd">function</span> <span class="nx">wait</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+                <span class="p">},</span><span class="mi">1000</span><span class="p">);</span>
+        <span class="p">}</span>
 
-  <span class="nx">wait</span><span class="p">(</span><span class="s1">&#39;hello closure&#39;</span><span class="p">);</span>
+        <span class="nx">wait</span><span class="p">(</span><span class="s1">&#39;hello closure&#39;</span><span class="p">);</span>
 </pre></div>
 
 
 <blockquote>
 <p>3、循环和闭包</p>
 </blockquote>
-<div class="hlcode"><pre><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
-        <span class="p">},</span><span class="nx">i</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="hlcode"><pre>        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+                <span class="p">},</span><span class="nx">i</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="p">}</span>
 
-<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">j</span><span class="p">){</span>
-        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
-            <span class="p">},</span><span class="nx">j</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
-        <span class="p">})(</span><span class="nx">i</span><span class="p">);</span>
-<span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">j</span><span class="p">){</span>
+                <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
+                    <span class="p">},</span><span class="nx">j</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+                <span class="p">})(</span><span class="nx">i</span><span class="p">);</span>
+        <span class="p">}</span>
 
-<span class="c1">//let</span>
-<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
-    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
-        <span class="p">},</span><span class="nx">j</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
-<span class="p">}</span>
+        <span class="c1">//let</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
+                <span class="p">},</span><span class="nx">j</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="p">}</span>
 
-<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
-        <span class="p">},</span><span class="nx">i</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
-<span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+                <span class="p">},</span><span class="nx">i</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="p">}</span>
 </pre></div>
 
 

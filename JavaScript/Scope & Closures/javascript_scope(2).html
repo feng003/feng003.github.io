@@ -23,59 +23,59 @@
   <blockquote>
 <p>1、函数作用域</p>
 </blockquote>
-<div class="hlcode"><pre>  <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-  <span class="p">{</span>
-          <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-          <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){}</span>
-          <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-  <span class="p">}</span>
+<div class="hlcode"><pre>        <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+                <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){}</span>
+                <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+        <span class="p">}</span>
 </pre></div>
 
 
 <blockquote>
 <p>2、隐藏内部实现</p>
 </blockquote>
-<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">doSth</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">doSthElse</span><span class="p">(</span> <span class="nx">a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="kd">function</span> <span class="nx">doSthElse</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="nx">a</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kd">var</span> <span class="nx">b</span><span class="p">;</span>
-<span class="nx">doSth</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</pre></div>
-
-
-<p>隐藏之后</p>
-<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">doSth</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-<span class="p">{</span>
+<div class="hlcode"><pre>        <span class="kd">function</span> <span class="nx">doSth</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">doSthElse</span><span class="p">(</span> <span class="nx">a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="p">}</span>
         <span class="kd">function</span> <span class="nx">doSthElse</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
         <span class="p">{</span>
             <span class="k">return</span> <span class="nx">a</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
         <span class="p">}</span>
-
         <span class="kd">var</span> <span class="nx">b</span><span class="p">;</span>
+        <span class="nx">doSth</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
 
-        <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">doSthElse</span><span class="p">(</span><span class="nx">a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span> <span class="mi">3</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="nx">doSth</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 
-<span class="nx">b</span> <span class="err">和</span> <span class="nx">doSthElse</span><span class="p">()</span> <span class="err">无法从外部访问。</span>
+<p>隐藏之后</p>
+<div class="hlcode"><pre>    <span class="kd">function</span> <span class="nx">doSth</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+    <span class="p">{</span>
+            <span class="kd">function</span> <span class="nx">doSthElse</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">a</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="kd">var</span> <span class="nx">b</span><span class="p">;</span>
+
+            <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">doSthElse</span><span class="p">(</span><span class="nx">a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">doSth</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+     <span class="nx">b</span> <span class="err">和</span> <span class="nx">doSthElse</span><span class="p">()</span> <span class="err">无法从外部访问。</span>
 </pre></div>
 
 
 <blockquote>
 <p>3、函数作用域 (匿名函数自执行)</p>
 </blockquote>
-<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-<span class="p">(</span><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
-    <span class="kd">var</span>  <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">a</span> <span class="p">);</span>    <span class="c1">// 3</span>
-    <span class="p">})();</span>
- <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>      <span class="c1">//2</span>
+<div class="hlcode"><pre>        <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">(</span><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+            <span class="kd">var</span>  <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">;</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">a</span> <span class="p">);</span>    <span class="c1">// 3</span>
+            <span class="p">})();</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>      <span class="c1">//2</span>
 </pre></div>
 
 
@@ -87,35 +87,35 @@
 <p>1、编译器</p>
 </blockquote>
 <p>foo函数的声明被提升</p>
-<div class="hlcode"><pre><span class="nx">foo</span><span class="p">();</span>
-<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
-<span class="p">{</span>
-     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
-     <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="hlcode"><pre>        <span class="nx">foo</span><span class="p">();</span>
+        <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span>
 </pre></div>
 
 
 <p>函数表达式却不会被提升</p>
-<div class="hlcode"><pre><span class="nx">foo</span><span class="p">();</span>
+<div class="hlcode"><pre>        <span class="nx">foo</span><span class="p">();</span>
 
-<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){}</span>
+        <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){}</span>
 </pre></div>
 
 
 <blockquote>
 <p>2、函数优先:函数声明 会被提现到 普通变量之前</p>
 </blockquote>
-<div class="hlcode"><pre><span class="nx">foo</span><span class="p">();</span>
-<span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
-<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="hlcode"><pre>        <span class="nx">foo</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+        <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+        <span class="p">}</span>
 </pre></div>
 </div>
 
