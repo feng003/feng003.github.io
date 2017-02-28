@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>es6之 Number - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#JavaScript">JavaScript</a>&nbsp;»&nbsp;<a href="/#JavaScript-ECMAScript6">ECMAScript6</a>&nbsp;»&nbsp;es6之 Number</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">es6之 Number</div>
+  <div id="content">
+  <blockquote>
+<p>二进制0b(0B) 和 八进制 0o(0O)</p>
+</blockquote>
+<div class="hlcode"><pre>            <span class="n">Number</span><span class="p">(</span><span class="err">&#39;</span><span class="mi">0</span><span class="n">b111</span><span class="err">&#39;</span><span class="p">);</span>
+            <span class="n">Number</span><span class="p">(</span><span class="err">&#39;</span><span class="mi">0</span><span class="n">o10</span><span class="err">&#39;</span><span class="p">);</span>
+</pre></div>
+
+
+<blockquote>
+<p>Number.isFinite() Number.isNan()</p>
+</blockquote>
+<div class="hlcode"><pre>            <span class="nb">Number</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+            <span class="nb">Number</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="kc">Infinity</span><span class="p">);</span>
+            <span class="nb">Number</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+            <span class="nb">Number</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+            <span class="nb">Number</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span>
+
+            <span class="c1">//ES5</span>
+            <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">global</span><span class="p">){</span>
+                <span class="kd">var</span> <span class="nx">global_isNaN</span> <span class="o">=</span> <span class="nx">global</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">;</span>
+                <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nb">Number</span><span class="p">,</span><span class="s1">&#39;isNaN&#39;</span><span class="p">,{</span>
+                    <span class="nx">value</span><span class="o">:</span><span class="kd">function</span> <span class="nb">isNaN</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+                        <span class="k">return</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">global_isNaN</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+                    <span class="p">},</span>
+                    <span class="nx">configurable</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">enumerable</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">writable</span><span class="o">:</span><span class="kc">true</span>
+                <span class="p">});</span>
+            <span class="p">})(</span><span class="k">this</span><span class="p">);</span>
+</pre></div>
+
+
+<blockquote>
+<p>Number.parseInt()  Number.parseFloat()</p>
+</blockquote>
+<div class="hlcode"><pre>        <span class="n">Number</span><span class="p">.</span><span class="n">parseInt</span> <span class="o">===</span> <span class="n">parseInt</span><span class="p">;</span>
+        <span class="n">Number</span><span class="p">.</span><span class="n">parseFloat</span> <span class="o">===</span> <span class="n">parseFloat</span>
+</pre></div>
+
+
+<blockquote>
+<p>Number.isInterger()</p>
+</blockquote>
+<div class="hlcode"><pre>        <span class="n">Number</span><span class="p">.</span><span class="n">isInteger</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+        <span class="n">Number</span><span class="p">.</span><span class="n">isInteger</span><span class="p">(</span><span class="mf">3.1</span><span class="p">)</span>
+        <span class="n">Number</span><span class="p">.</span><span class="n">isInteger</span><span class="p">(</span><span class="err">&#39;</span><span class="mf">3.1</span><span class="err">&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<blockquote>
+<p>Number.EPSILON</p>
+</blockquote>
+<div class="hlcode"><pre>        <span class="nb">Number</span><span class="p">.</span><span class="nx">EPSILON</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+
+        <span class="c1">//浮点数运算误差检查函数</span>
+        <span class="kd">function</span> <span class="nx">withinErrorMargin</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span><span class="nx">right</span><span class="p">){</span>
+            <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">left</span> <span class="o">-</span> <span class="nx">right</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">Number</span><span class="p">.</span><span class="nx">EPSILON</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nx">withinErrorMargin</span><span class="p">(</span><span class="mf">0.1</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="nx">withinErrorMargin</span><span class="p">(</span><span class="mf">0.2</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+
+
+<blockquote>
+<p>Number.isSafeInteger()</p>
+</blockquote>
+<div class="hlcode"><pre>        <span class="n">Number</span><span class="p">.</span><span class="n">MAX_SAFE_INTEGER</span>
+        <span class="n">Number</span><span class="p">.</span><span class="n">MIN_SAFE_INTEGER</span>
+
+        <span class="n">Number</span><span class="p">.</span><span class="n">isSafeInteger</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">)</span>
+        <span class="n">Number</span><span class="p">.</span><span class="n">isSafeInteger</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">Number</span><span class="p">.</span><span class="n">isSafeInteger</span><span class="p">(</span><span class="mi">9007199254740993</span><span class="p">)</span>
+</pre></div>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

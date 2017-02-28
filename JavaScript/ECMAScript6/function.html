@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>javascript Ninja 之function(一) - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#JavaScript">JavaScript</a>&nbsp;»&nbsp;<a href="/#JavaScript-ECMAScript6">ECMAScript6</a>&nbsp;»&nbsp;javascript Ninja 之function(一)</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">javascript Ninja 之function(一)</div>
+  <div id="content">
+  <ol>
+<li>理解函数</li>
+<li>函数为什么是第一型对象</li>
+<li>浏览器如何调用函数</li>
+<li>函数声明</li>
+<li>参数赋值</li>
+<li>函数上下文</li>
+</ol>
+<blockquote>
+<p>function declare</p>
+</blockquote>
+<ol>
+<li>
+<div class="hlcode"><pre>    <span class="kd">function</span> <span class="nx">isNimble</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">canFly</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">outer</span><span class="p">(){</span>
+        <span class="k">typeof</span> <span class="nx">inner</span><span class="p">;</span>
+        <span class="kd">function</span> <span class="nx">inner</span><span class="p">(){</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>    
+        <span class="nb">window</span><span class="p">.</span><span class="nx">inner</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">typeof</span> <span class="nb">window</span><span class="p">.</span><span class="nx">isNimble</span><span class="p">;</span>
+    <span class="nx">isNimble</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>scope and function</p>
+<div class="hlcode"><pre>    <span class="k">if</span><span class="p">(</span><span class="n">window</span><span class="p">){</span>
+        <span class="n">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">alert</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</pre></div>
+
+
+</li>
+</ol>
+<h4 id="_1">变量声明的作用域开始于声明的地方，结束于所在函数的结尾，与代码嵌套无关</h4>
+<h4 id="_2">命名函数的作用域是指声明该函数的整个函数范围，与代码嵌套无关(机制提升)</h4>
+<h4 id="_3">对于作用域声明，全局上下文就像一个包含页面所有代码的超大型函数</h4>
+<blockquote>
+<p>function implicit parameter: arguments and this </p>
+</blockquote>
+<h4 id="arguments">arguments 参数是传递给函数的所有参数的一个集合，非数组。</h4>
+<h4 id="this">this参数引用了与该函数调用进行隐式关联的一个对象，称之为函数上下文</h4>
+<blockquote>
+<p>function invoking</p>
+</blockquote>
+<h4 id="thiswindow">函数调用方式之间的主要差异是：作为this参数传递给执行函数的上下文对象之间的区别。作为方法进行调用，该上下文是方法的拥有者；作为全局函数进行调用，其上下文是window；作为构造器进行调用，其上下文对象则是新创建的对象实例。</h4>
+<ol>
+<li>
+<p>作为一个函数进行调用</p>
+<div class="hlcode"><pre>        <span class="kd">function</span> <span class="nx">f</span><span class="p">(){</span><span class="k">return</span> <span class="k">this</span><span class="p">;}</span>
+        <span class="nx">f</span><span class="p">()</span> <span class="o">===</span> <span class="nb">window</span><span class="p">;</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>作为一个方法进行调用(对象)</p>
+<div class="hlcode"><pre>        <span class="kd">function</span> <span class="nx">creep</span><span class="p">(){</span><span class="k">return</span> <span class="k">this</span><span class="p">;}</span>
+        <span class="kd">var</span> <span class="nx">sneak</span> <span class="o">=</span> <span class="nx">creep</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">ninja1</span> <span class="o">=</span> <span class="p">{</span><span class="nx">skulk</span><span class="o">:</span><span class="nx">creep</span><span class="p">};</span>
+        <span class="kd">var</span> <span class="nx">ninja2</span> <span class="o">=</span> <span class="p">{</span><span class="nx">skulk</span><span class="o">:</span><span class="nx">creep</span><span class="p">};</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>作为构造器进行调用</p>
+<div class="hlcode"><pre>        <span class="kd">function</span> <span class="nx">creep</span><span class="p">(){</span><span class="k">return</span> <span class="k">this</span><span class="p">;}</span>
+        <span class="k">new</span> <span class="nx">creep</span><span class="p">()</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>通过apply()或call()方法进行调用，可以自由执行函数上下文。</p>
+</li>
+</ol>
+<h4 id="apply-call">使用apply() call() 方法可以显式指定任何一个对象作为其函数上下文</h4>
+<div class="hlcode"><pre>            <span class="kd">function</span> <span class="nx">juggle</span><span class="p">(){</span>
+                <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">n</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">n</span><span class="o">&lt;</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">n</span><span class="o">++</span><span class="p">){</span>
+                    <span class="nx">result</span> <span class="o">+=</span> <span class="nx">arguments</span><span class="cp">[</span><span class="nb">n</span><span class="cp">]</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">result</span> <span class="o">=</span> <span class="nx">result</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="kd">var</span> <span class="nx">ninja1</span> <span class="o">=</span> <span class="p">{};</span>
+            <span class="kd">var</span> <span class="nx">ninja2</span> <span class="o">=</span> <span class="p">{};</span>
+
+            <span class="nx">juggle</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">ninja1</span><span class="p">,</span><span class="cp">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="cp">]</span><span class="p">);</span>
+            <span class="nx">juggle</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">ninja2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+</pre></div>
+
+
+<h4 id="_4">在回调中强制指定函数上下文</h4>
+<div class="hlcode"><pre>            <span class="kd">function</span> <span class="nx">forEach</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+                    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">n</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">n</span><span class="o">&lt;</span><span class="nx">list</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">n</span><span class="o">++</span><span class="p">){</span>
+                        <span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">list</span><span class="cp">[</span><span class="nb">n</span><span class="cp">]</span><span class="p">,</span><span class="nx">n</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="kd">var</span> <span class="nx">wanpons</span> <span class="o">=</span> <span class="cp">[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span><span class="s1">&#39;t&#39;</span><span class="p">,</span><span class="s1">&#39;n&#39;</span><span class="cp">]</span><span class="p">;</span>
+                <span class="nx">forEach</span><span class="p">(</span><span class="nx">wanpons</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">){</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>
+                    <span class="nx">assert</span><span class="p">(</span><span class="k">this</span><span class="o">===</span><span class="nx">wanpons</span><span class="cp">[</span><span class="nb">index</span><span class="cp">]</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="o">+</span><span class="nx">wanpons</span><span class="cp">[</span><span class="nb">index</span><span class="cp">]</span><span class="p">);</span>
+                <span class="p">})</span>
+</pre></div>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
