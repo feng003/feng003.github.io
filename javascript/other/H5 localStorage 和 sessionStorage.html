@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>localStorage sessionStorage - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#javascript">javascript</a>&nbsp;»&nbsp;<a href="/#javascript-other">other</a>&nbsp;»&nbsp;localStorage sessionStorage</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">localStorage sessionStorage</div>
+  <div id="content">
+  <h3 id="h5">h5提供客户端存储数据的新方法：</h3>
+<div class="hlcode"><pre><span class="n">localStorage</span>  <span class="o">--</span> <span class="err">没有时间限制的数据存储</span> <span class="err">（持久化）</span>
+<span class="n">sessionStorage</span> <span class="o">--</span> <span class="err">针对一个</span><span class="n">session</span><span class="err">的数据存储（会话级别）</span>
+</pre></div>
+
+
+<p>1、web storage 和 cookie 的区别</p>
+<div class="hlcode"><pre><span class="n">Web</span> <span class="n">Storage</span><span class="err">的概念和</span><span class="n">cookie</span><span class="err">相似，区别是它是为了更大容量存储设计的。</span><span class="n">Cookie</span><span class="err">的大小是受限的，并且每次你请求一个新的页面的时候</span><span class="n">Cookie</span><span class="err">都会被发送过去，这样无形中浪费了带宽，另外</span><span class="n">cookie</span><span class="err">还需要指定作用域，不可以跨域调用。</span>
+<span class="err">除此之外，</span><span class="n">Web</span> <span class="n">Storage</span><span class="err">拥有</span><span class="n">setItem</span><span class="p">,</span><span class="n">getItem</span><span class="p">,</span><span class="n">removeItem</span><span class="p">,</span><span class="n">clear</span><span class="err">等方法，不像</span><span class="n">cookie</span><span class="err">需要前端开发者自己封装</span><span class="n">setCookie</span><span class="err">，</span><span class="n">getCookie</span><span class="err">。</span>
+<span class="err">但是</span><span class="n">Cookie</span><span class="err">也是不可以或缺的：</span><span class="n">Cookie</span><span class="err">的作用是与服务器进行交互，作为</span><span class="n">HTTP</span><span class="err">规范的一部分而存在</span> <span class="err">，而</span><span class="n">Web</span> <span class="n">Storage</span><span class="err">仅仅是为了在本地“存储”数据而生。</span>
+</pre></div>
+
+
+<p>2、localStorage和sessionStorage操作</p>
+<div class="hlcode"><pre><span class="n">setItem</span><span class="err">、</span><span class="n">getItem</span> <span class="err">和</span> <span class="n">removeItem</span>
+
+<span class="n">setItem</span> <span class="err">存储</span><span class="n">value</span>     <span class="n">sessionStorage</span><span class="p">.</span><span class="n">setItem</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="p">);</span>
+<span class="n">getItem</span> <span class="err">获取</span><span class="n">value</span>    <span class="n">var</span> <span class="n">value</span> <span class="o">=</span> <span class="n">sessionStorage</span><span class="p">.</span><span class="n">getItem</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">);</span>
+<span class="n">removeItem</span> <span class="err">删除</span><span class="n">key</span>    <span class="n">sessionStorage</span><span class="p">.</span><span class="n">removeItem</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">);</span>
+<span class="n">clear</span> <span class="err">清除所有的</span><span class="n">key</span><span class="o">/</span><span class="n">value</span>   <span class="n">sessionStorage</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</pre></div>
+
+
+<p>3、浏览器兼容</p>
+<div class="hlcode"><pre><span class="c1">//数据存储  IE6~7 cookie 其他浏览器HTML5本地存储</span>
+<span class="k">var</span> <span class="n">arrDisplay</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0</span><span class="p">,</span> <span class="mh">1</span><span class="p">,</span> <span class="mh">1</span><span class="p">,</span> <span class="mh">1</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">window</span><span class="p">.</span><span class="n">localStorage</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">localStorage</span><span class="p">.</span><span class="n">setItem</span><span class="p">(</span><span class="s">&quot;menuTitle&quot;</span><span class="p">,</span> <span class="n">arrDisplay</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="n">Cookie</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;menuTitle&quot;</span><span class="p">,</span> <span class="n">arrDisplay</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//数据读取</span>
+<span class="k">var</span> <span class="n">strStoreDate</span> <span class="o">=</span> <span class="n">window</span><span class="p">.</span><span class="n">localStorage</span><span class="o">?</span> <span class="n">localStorage</span><span class="p">.</span><span class="n">getItem</span><span class="p">(</span><span class="s">&quot;menuTitle&quot;</span><span class="p">)</span><span class="o">:</span> <span class="n">Cookie</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="s">&quot;menuTitle&quot;</span><span class="p">);</span>
+
+<span class="err">虽然我们存储的是数组，但是，实际上存储的的是数组字符化后的字符串。</span>
+</pre></div>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

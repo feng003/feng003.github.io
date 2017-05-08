@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>php配置学习 - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#linux">linux</a>&nbsp;»&nbsp;php配置学习</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">php配置学习</div>
+  <div id="content">
+  <blockquote>
+<p>隐藏 phpinfo()</p>
+</blockquote>
+<div class="hlcode"><pre><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="err">通过修改服务器环境内</span><span class="nx">php</span><span class="p">.</span><span class="nx">ini</span><span class="err">文件，将“</span><span class="nx">expose_php</span> <span class="o">=</span> <span class="nx">On</span><span class="err">”修改成“</span><span class="nx">expose_php</span> <span class="o">=</span> <span class="nx">Off</span><span class="err">”然后重启</span><span class="nx">php</span><span class="err">即可。</span>
+
+<span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="err">若无需要可以将一些</span><span class="nx">php</span><span class="err">的危险函数禁用，</span>
+<span class="err">打开</span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">php</span><span class="p">.</span><span class="nx">ini</span><span class="err">文件，查找到</span> <span class="nx">disable_functions</span><span class="err">，添加需禁用的以下函数名：</span>
+
+<span class="nx">phpinfo</span><span class="p">,</span><span class="nb">eval</span><span class="p">,</span><span class="nx">passthru</span><span class="p">,</span><span class="nx">exec</span><span class="p">,</span><span class="nx">system</span><span class="p">,</span><span class="nx">chroot</span><span class="p">,</span><span class="nx">scandir</span><span class="p">,</span><span class="nx">chgrp</span><span class="p">,</span><span class="nx">chown</span><span class="p">,</span><span class="nx">shell_exec</span><span class="p">,</span><span class="nx">proc_open</span><span class="p">,</span>
+<span class="nx">proc_get_status</span><span class="p">,</span><span class="nx">ini_alter</span><span class="p">,</span><span class="nx">ini_alter</span><span class="p">,</span><span class="nx">ini_restore</span><span class="p">,</span><span class="nx">dl</span><span class="p">,</span><span class="nx">pfsockopen</span><span class="p">,</span><span class="nx">openlog</span><span class="p">,</span><span class="nx">syslog</span><span class="p">,</span><span class="nx">readlink</span><span class="p">,</span>
+<span class="nx">symlink</span><span class="p">,</span><span class="nx">popepassthru</span><span class="p">,</span><span class="nx">stream_socket_server</span><span class="p">,</span><span class="nx">fsocket</span><span class="p">,</span><span class="nx">fsockopen</span>
+</pre></div>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

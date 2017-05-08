@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>javascript object(1) - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#javascript">javascript</a>&nbsp;»&nbsp;<a href="/#javascript-You Don't Know JS">You Don't Know JS</a>&nbsp;»&nbsp;javascript object(1)</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">javascript object(1)</div>
+  <div id="content">
+  <blockquote>
+<p>syntax  声明(文字)形式 和 构造形式</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">myObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">key</span> <span class="o">:</span> <span class="n">value</span>
+<span class="p">};</span>
+
+<span class="n">var</span> <span class="n">myObj</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Object</span><span class="p">();</span>
+<span class="n">myObj</span><span class="p">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+</pre></div>
+
+
+<blockquote>
+<p>types</p>
+</blockquote>
+<h5 id="string-number-boolean-null-undefined-object-function-array">string number boolean null undefined object (function array)</h5>
+<h5 id="string-number-boolean-object-function-array-date-regexp-error">内置对象 String Number Boolean Object Function Array Date RegExp Error</h5>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot; I am string&quot;</span><span class="p">;</span>
+<span class="n">typeof</span> <span class="n">str</span> <span class="c1">// string</span>
+<span class="n">str</span> <span class="n">instanceof</span> <span class="n">String</span> <span class="c1">// false</span>
+
+<span class="n">var</span> <span class="n">strObj</span> <span class="o">=</span> <span class="n">new</span> <span class="n">String</span><span class="p">(</span><span class="s">&quot;I am object&quot;</span><span class="p">);</span>
+<span class="n">typeof</span> <span class="n">strObj</span>   <span class="c1">// object</span>
+<span class="n">strObj</span> <span class="n">instanceof</span> <span class="n">String</span> <span class="c1">// true</span>
+
+<span class="n">Object</span><span class="p">.</span><span class="n">prototype</span><span class="p">.</span><span class="n">toString</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="n">strObj</span><span class="p">);</span>
+</pre></div>
+
+
+<blockquote>
+<p>loop  for..in 遍历对象的可枚举属性列表（包括[[prototype]]链）</p>
+</blockquote>
+<div class="hlcode"><pre><span class="k">for</span><span class="p">..</span><span class="n">of</span>
+</pre></div>
+
+
+<blockquote>
+<p>Content (property)</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">myObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nl">a:</span><span class="err">&#39;</span><span class="mi">22</span><span class="err">&#39;</span>
+<span class="p">}</span>
+
+<span class="n">myObj</span><span class="p">.</span><span class="n">a</span><span class="p">;</span> <span class="c1">// 属性访问</span>
+<span class="n">myObj</span><span class="p">[</span><span class="sc">&#39;a&#39;</span><span class="p">]</span> <span class="c1">//键访问</span>
+</pre></div>
+
+
+<h4 id="es6-symbol">可计算属性名(ES6 Symbol)</h4>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">prefix</span> <span class="o">=</span> <span class="s">&quot;foo&quot;</span><span class="p">;</span>
+<span class="n">var</span> <span class="n">myObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s">&quot;bar&quot;</span><span class="p">]</span> <span class="o">:</span> <span class="s">&quot;hello&quot;</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s">&quot;baz&quot;</span><span class="p">]</span> <span class="o">:</span> <span class="s">&quot;world&quot;</span>
+<span class="p">};</span>
+
+<span class="n">myObj</span><span class="p">[</span><span class="s">&quot;foobar&quot;</span><span class="p">];</span>
+</pre></div>
+
+
+<h4 id="_1">属性与方法</h4>
+<div class="hlcode"><pre><span class="n">function</span> <span class="nf">foo</span><span class="p">(){</span>
+    <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="err">&#39;</span><span class="n">foo</span><span class="err">&#39;</span> <span class="o">+</span> <span class="n">this</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">var</span> <span class="n">someFoo</span> <span class="o">=</span> <span class="n">foo</span><span class="p">;</span>
+<span class="n">var</span> <span class="n">myObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">someFoo</span> <span class="o">:</span> <span class="n">foo</span>
+<span class="p">}</span>
+<span class="n">foo</span><span class="p">;</span>
+<span class="n">someFoo</span><span class="p">;</span>
+<span class="n">myObj</span><span class="p">.</span><span class="n">someFoo</span><span class="p">;</span>
+<span class="n">someFoo</span><span class="p">()</span>    <span class="c1">//  foo[object Window]</span>
+<span class="n">myObj</span><span class="p">.</span><span class="n">someFoo</span><span class="p">()</span>  <span class="c1">// foo[object Object]</span>
+
+<span class="n">var</span> <span class="n">newObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nl">foo:</span><span class="n">function</span><span class="p">(){</span>
+        <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="err">&#39;</span><span class="n">new</span> <span class="n">foo</span><span class="err">&#39;</span> <span class="o">+</span> <span class="n">this</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">var</span> <span class="n">newFoo</span>  <span class="o">=</span> <span class="n">newObj</span><span class="p">.</span><span class="n">foo</span><span class="p">;</span>
+<span class="n">newFoo</span><span class="p">;</span>
+<span class="n">newObj</span><span class="p">.</span><span class="n">foo</span><span class="p">;</span>
+</pre></div>
+
+
+<h4 id="array">array</h4>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">myArr</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;foo&quot;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="s">&quot;bar&quot;</span><span class="p">,</span><span class="nb">true</span><span class="p">];</span>
+<span class="n">myArr</span><span class="p">.</span><span class="n">length</span>  <span class="c1">//4</span>
+<span class="n">myArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>      <span class="c1">//foo</span>
+</pre></div>
+
+
+<h6 id="_2">对象来存储 键/值对，而数组来存储 数值下标/值对</h6>
+<h4 id="_3">复制对象</h4>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">anotherFunc</span><span class="p">(){}</span>
+<span class="kd">var</span> <span class="nx">anotherArr</span> <span class="o">=</span> <span class="cp">[]</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">anotherObj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="kc">true</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span><span class="nx">anotherObj</span><span class="p">,</span>  <span class="c1">//引用 不是复本</span>
+    <span class="nx">c</span><span class="o">:</span><span class="nx">anotherArr</span><span class="p">,</span>  <span class="c1">// 另一个引用</span>
+    <span class="nx">d</span><span class="o">:</span><span class="nx">anotherFunc</span>
+<span class="p">}</span>
+<span class="nx">anotherArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">anotherObj</span><span class="p">,</span><span class="nx">myObj</span><span class="p">);</span>
+</pre></div>
+
+
+<h6 id="es6-objectassign">对于浅复制 ES6定义了  Object.assign() 来实现，第一个参数是目标对象，之后可以跟一个或多个源对象</h6>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">newObj</span> <span class="o">=</span> <span class="n">Object</span><span class="p">.</span><span class="n">assign</span><span class="p">({},</span><span class="n">myObj</span><span class="p">)</span><span class="err">；</span>
+
+<span class="n">newObj</span><span class="p">;</span>
+<span class="n">newObj</span><span class="p">.</span><span class="n">b</span> <span class="o">===</span> <span class="n">anotherObj</span><span class="p">;</span>   <span class="c1">// true</span>
+</pre></div>
+
+
+<h4 id="_4">属性描述符</h4>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">myObj</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="o">:</span><span class="mi">2</span><span class="p">};</span>
+<span class="n">Object</span><span class="p">.</span><span class="n">getOwnPropertyDescriptor</span><span class="p">(</span><span class="n">myObj</span><span class="p">,</span><span class="s">&quot;a&quot;</span><span class="p">)</span>   <span class="c1">// Object {value: 2, writable: true, enumerable: true, configurable: true}</span>
+
+<span class="n">Object</span><span class="p">.</span><span class="n">defineProperty</span><span class="p">(</span><span class="n">myObj</span><span class="p">,</span><span class="s">&quot;a&quot;</span><span class="p">,{</span><span class="n">value</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span><span class="n">writable</span><span class="o">:</span><span class="nb">false</span><span class="p">,</span><span class="n">enumerable</span><span class="o">:</span><span class="nb">true</span><span class="p">,</span><span class="n">configurable</span><span class="o">:</span><span class="nb">true</span><span class="p">})</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>writable 是否可以修改属性的值</p>
+</li>
+<li>
+<p>Configurable  属性是可配置的；除了无法修改，Configurable:false 还会禁止删除这个属性</p>
+</li>
+<li>
+<p>Enumerable</p>
+</li>
+</ol>
+<p>描述符控制的是属性是否会出现在对象的属性枚举中，比如说 for .. in 循环。如果把enumerabel 设置成false，这个属性就不会出现在枚举中。</p>
+<h4 id="_5">不变性</h4>
+<ol>
+<li>
+<p>对象常量 结合writable:false 和 configurable:false就可以创建一个真正的常量属性(不可修改、重定义或删除)</p>
+<p>var myObj = {}
+Object.defineProperty(myObj,"FACORITE_NUMBER",{value:40,writable:false,configurable:false})</p>
+<p>myObj //Object {FACORITE_NUMBER: 40}</p>
+</li>
+<li>
+<p>禁止扩展  Object.preventExtensions()</p>
+<p>var newObj = {a:3}
+Object.preventExtensions(newObj)
+newObj.b = 4 ;
+newObj.b   // undefined</p>
+</li>
+<li>
+<p>密封 Object.seal()</p>
+</li>
+<li>
+<p>冻结 Object.freeze()</p>
+</li>
+</ol>
+<h4 id="get">[[Get]]</h4>
+<p>对象默认的内置[[Get]]操作首先在对象中查找是否有名称相同的属性，如果没有找到，就会变量可能存在的[[Prototype]]链</p>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">myObj</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="o">:</span><span class="n">undefined</span><span class="p">}</span>
+<span class="n">myObj</span><span class="p">.</span><span class="n">a</span>   <span class="c1">// undefined</span>
+<span class="n">myObj</span><span class="p">.</span><span class="n">b</span>  <span class="c1">// undefined</span>
+</pre></div>
+
+
+<h4 id="put">[[Put]]</h4>
+<div class="hlcode"><pre><span class="err">如果已经存在这个属性，</span><span class="p">[[</span><span class="n">Put</span><span class="p">]]</span><span class="err">算法：</span>
+<span class="mf">1.</span> <span class="err">属性是否是访问描述符？是并且存在</span><span class="n">setter</span> <span class="err">就调用</span><span class="n">setter</span>
+<span class="mf">2.</span> <span class="err">属性的数据描述符中</span><span class="n">writable</span> <span class="err">是否是</span><span class="nb">false</span><span class="err">？是，在非严格模式下静默失败；严格模式下抛出</span><span class="n">TypeError</span><span class="err">异常</span>
+<span class="mf">3.</span> <span class="err">如果都不是，将该值设置为属性的值</span>
+</pre></div>
+
+
+<h4 id="getter-and-setter">Getter and Setter</h4>
+<h4 id="_6">存在性</h4>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

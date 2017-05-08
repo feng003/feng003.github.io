@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>es6之Promise - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#javascript">javascript</a>&nbsp;»&nbsp;<a href="/#javascript-ECMAScript6">ECMAScript6</a>&nbsp;»&nbsp;es6之Promise</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">es6之Promise</div>
+  <div id="content">
+  <blockquote>
+<p>Promise的应用</p>
+</blockquote>
+<ol>
+<li>
+<p>加载图片</p>
+<div class="hlcode"><pre><span class="kr">const</span> <span class="nx">preloadImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">path</span><span class="p">){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">reject</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+        <span class="nx">image</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">;</span>
+        <span class="nx">image</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="nx">reject</span><span class="p">;</span>
+        <span class="nx">image</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">path</span><span class="p">;</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Generator 与 Promise 的结合</p>
+</li>
+</ol>
+<blockquote>
+<p>Promise 定义和用法</p>
+</blockquote>
+<h4 id="promise">所谓promise，就是一个对象，用来传递异步操作的消息</h4>
+<ol>
+<li>对象的状态不受外界影响，三种状态：pending、resolved、rejected</li>
+<li>一旦状态改变就不会再变，任何时候都可以得到这个结果。</li>
+</ol>
+<h4 id="pormise">Pormise对象是一个构造函数</h4>
+<div class="hlcode"><pre>    <span class="kd">var</span> <span class="nx">promise</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">reject</span><span class="p">){</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+            <span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> <span class="c1">//将pending变成resolved</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span> <span class="c1">//将pending变成rejected</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+
+    <span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+        <span class="c1">//success;</span>
+    <span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+        <span class="c1">//failure;</span>
+    <span class="p">})</span>
+
+    <span class="kd">function</span> <span class="nx">timeout</span><span class="p">(</span><span class="nx">ms</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">reject</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">ms</span><span class="p">,</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">timeout</span><span class="p">(</span><span class="mi">1000</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="kd">function</span> <span class="nx">loadImageAsync</span><span class="p">(</span><span class="nx">url</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">rejct</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+            <span class="nx">image</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">resolve</span><span class="p">(</span><span class="nx">image</span><span class="p">);</span>
+            <span class="p">};</span>
+            <span class="nx">image</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Could not load image at&#39;</span> <span class="o">+</span> <span class="nx">url</span><span class="p">));</span>
+            <span class="p">};</span>
+            <span class="nx">image</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">getJSON</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">promise</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">reject</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="nx">url</span><span class="p">);</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="nx">handler</span><span class="p">;</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">responseType</span> <span class="o">=</span> <span class="s2">&quot;json&quot;</span><span class="p">;</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&quot;Accept&quot;</span><span class="p">,</span><span class="s2">&quot;application/json&quot;</span><span class="p">);</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+
+            <span class="kd">function</span> <span class="nx">handler</span><span class="p">(){</span>
+                <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">!==</span><span class="mi">4</span><span class="p">){</span>
+                    <span class="k">return</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="mi">200</span><span class="p">){</span>
+                    <span class="nx">resolve</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">response</span><span class="p">);</span>
+                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                    <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">statusText</span><span class="p">));</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+        <span class="k">return</span> <span class="nx">promise</span><span class="p">;</span>
+    <span class="p">};</span>
+</pre></div>
+
+
+<blockquote>
+<p>Promise.prototype.then() and Promise.prototype.catch()</p>
+</blockquote>
+<ol>
+<li>
+<p>then 为Promise实例添加状态改变时的回调函数；then方法返回一个新的Promise实例</p>
+<div class="hlcode"><pre><span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;/post/1.json&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">post</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;post.commentURL&#39;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="nx">funcA</span><span class="p">(</span><span class="nx">comments</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Resolved:&#39;</span><span class="p">,</span><span class="nx">comments</span><span class="p">);</span>
+<span class="p">},</span><span class="kd">function</span> <span class="nx">funcB</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Rejected:&#39;</span><span class="p">,</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>catch方法是 .then(null,rejection)的别名</p>
+<div class="hlcode"><pre><span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;/post/1.json&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">post</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;post.commentURL&#39;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="nx">funcA</span><span class="p">(</span><span class="nx">comments</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Resolved:&#39;</span><span class="p">,</span><span class="nx">comments</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Rejected&#39;</span><span class="p">,</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+
+</li>
+</ol>
+<blockquote>
+<p>Promise.all() 、Promise.race() 、Promise.resolve() 和 Promise.reject()</p>
+</blockquote>
+<ol>
+<li>
+<p>Promise.all() 将多个Promise实例包装成一个新的Promise实例</p>
+</li>
+<li>
+<p>Promise.race() </p>
+</li>
+</ol>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

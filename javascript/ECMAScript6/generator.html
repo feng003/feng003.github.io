@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>es6之Generator - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#javascript">javascript</a>&nbsp;»&nbsp;<a href="/#javascript-ECMAScript6">ECMAScript6</a>&nbsp;»&nbsp;es6之Generator</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">es6之Generator</div>
+  <div id="content">
+  <blockquote>
+<p>Generator 应用</p>
+</blockquote>
+<ol>
+<li>
+<p>异步操作的同步化表达</p>
+</li>
+<li>
+<p>控制流管理</p>
+</li>
+<li>
+<p>部署Iterator接口</p>
+</li>
+<li>
+<p>作为数据结构</p>
+</li>
+</ol>
+<blockquote>
+<p>Generator简介 generator 可理解成一个状态机，封装了多个内部状态；执行genrator函数会返回一个遍历器对象。</p>
+</blockquote>
+<div class="hlcode"><pre>        <span class="kd">function</span><span class="o">*</span> <span class="nx">hello</span><span class="p">(){</span>
+            <span class="nx">yield</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span>
+            <span class="nx">yield</span> <span class="s2">&quot;js&quot;</span><span class="p">;</span>
+            <span class="k">return</span> <span class="s2">&quot;node&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kd">var</span> <span class="nx">h</span> <span class="o">=</span> <span class="nx">hello</span><span class="p">();</span>
+        <span class="nx">h</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+        <span class="nx">h</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+        <span class="nx">h</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+</pre></div>
+
+
+<blockquote>
+<p>next()参数</p>
+</blockquote>
+<div class="hlcode"><pre>        <span class="kd">function</span><span class="o">*</span> <span class="nx">f</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="kc">true</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="kd">var</span> <span class="nx">reset</span> <span class="o">=</span> <span class="nx">yield</span> <span class="nx">i</span><span class="p">;</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">reset</span><span class="p">){</span><span class="nx">i</span><span class="o">=-</span><span class="mi">1</span><span class="p">;}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nx">f</span><span class="p">();</span>
+        <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+        <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+        <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+
+        <span class="kd">function</span><span class="o">*</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span> <span class="p">(</span><span class="nx">yield</span> <span class="p">(</span><span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+            <span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="nx">yield</span> <span class="p">(</span><span class="nx">y</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+            <span class="k">return</span> <span class="p">(</span><span class="nx">x</span><span class="o">+</span><span class="nx">y</span><span class="o">+</span><span class="nx">z</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+        <span class="nx">a</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+        <span class="nx">a</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+        <span class="nx">a</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+        <span class="nx">b</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+        <span class="nx">b</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+        <span class="nx">b</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+
+
+<blockquote>
+<p>for...of 循环自动遍历generator函数</p>
+</blockquote>
+<div class="hlcode"><pre>        <span class="kd">function</span><span class="o">*</span> <span class="nx">numbers</span><span class="p">(){</span>
+            <span class="nx">yield</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="nx">yield</span> <span class="mi">2</span><span class="p">;</span>
+            <span class="k">return</span> <span class="mi">3</span><span class="p">;</span>
+            <span class="nx">yield</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="cp">[</span><span class="nx">...numbers</span><span class="p">()</span><span class="cp">]</span><span class="p">;</span>
+        <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">numbers</span><span class="p">());</span>
+        <span class="kd">let</span><span class="cp">[</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="cp">]</span> <span class="o">=</span> <span class="nx">numbers</span><span class="p">();</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">n</span> <span class="nx">of</span> <span class="nx">numbers</span><span class="p">()){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">//原生js对象没有遍历接口，无法使用for...of</span>
+        <span class="kd">function</span><span class="o">*</span> <span class="nx">objectEntries</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+            <span class="kd">let</span> <span class="nx">propKeys</span> <span class="o">=</span> <span class="nx">Reflect</span><span class="p">.</span><span class="nx">ownKeys</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+            <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">propkey</span> <span class="nx">of</span> <span class="nx">propKeys</span><span class="p">){</span>
+                <span class="nx">yield</span> <span class="cp">[</span><span class="nx">propkey</span><span class="p">,</span><span class="nx">obj</span><span class="err">[</span><span class="nx">propkey</span><span class="cp">]</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kd">let</span> <span class="nx">jane</span> <span class="o">=</span> <span class="p">{</span><span class="nx">f</span><span class="o">:</span><span class="s2">&quot;Jane&quot;</span><span class="p">,</span><span class="nx">l</span><span class="o">:</span><span class="s2">&quot;Doe&quot;</span><span class="p">};</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="cp">[</span><span class="nb">key</span><span class="p">,</span><span class="nx">val</span><span class="cp">]</span> <span class="nx">of</span> <span class="nx">objectEntries</span><span class="p">(</span><span class="nx">jane</span><span class="p">)){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">key</span><span class="p">}</span><span class="o">:</span><span class="nx">$</span><span class="p">{</span><span class="nx">val</span><span class="p">}</span><span class="err">`</span><span class="p">);</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<blockquote>
+<p>Generator.prototype.throw() and  Generator.prototype.return()</p>
+</blockquote>
+<ol>
+<li>
+<p>Generator函数返回的遍历器对象都有一个throw方法，可以在函数体外抛出错误，然后在Generator函数体内捕获。 </p>
+<div class="hlcode"><pre>    <span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span> <span class="p">(){</span>
+        <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+            <span class="nx">yield</span><span class="p">;</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;inner catch&#39;</span><span class="p">,</span><span class="nx">e</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">g</span><span class="p">();</span>
+    <span class="nx">i</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+
+    <span class="k">try</span><span class="p">{</span>
+        <span class="nx">i</span><span class="p">.</span><span class="k">throw</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+        <span class="nx">i</span><span class="p">.</span><span class="k">throw</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;outer catch&#39;</span><span class="p">,</span><span class="nx">e</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>return 方法可以返回给定的值，并终结Generator函数的遍历</p>
+<div class="hlcode"><pre>    <span class="kd">function</span><span class="o">*</span> <span class="nx">gen</span><span class="p">(){</span>
+        <span class="nx">yield</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">yield</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">7</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nx">gen</span><span class="p">();</span>
+    <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+    <span class="nx">g</span><span class="p">.</span><span class="k">return</span><span class="p">(</span><span class="s1">&#39;gen&#39;</span><span class="p">);</span>
+    <span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+</pre></div>
+
+
+</li>
+</ol>
+<blockquote>
+<p>yield*语句 等同于在Generator函数内部部署一个 for...of循环</p>
+<p>作为对象属性的Generator函数</p>
+</blockquote>
+<div class="hlcode"><pre>    <span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">*</span> <span class="nx">myGeneratorMethod</span><span class="p">(){</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">myGeneratorMethod</span><span class="o">:</span><span class="kd">function</span><span class="o">*</span> <span class="p">(){</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<blockquote>
+<p>Generator函数的this</p>
+</blockquote>
+<div class="hlcode"><pre>    <span class="kd">function</span><span class="o">*</span> <span class="nx">F</span><span class="p">(){</span>
+        <span class="nx">yield</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">yield</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">//F 返回的是遍历器对象，而不是this对象</span>
+
+    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">F</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">obj</span><span class="p">)();</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+</pre></div>
+
+
+<blockquote>
+<p>Generator函数推导 惰性求值</p>
+</blockquote>
+<div class="hlcode"><pre>    <span class="kd">let</span> <span class="nx">bigGenerator</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span> <span class="p">(){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">1000</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="nx">yield</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="kd">let</span> <span class="nx">squared</span> <span class="o">=</span> <span class="p">(</span><span class="k">for</span><span class="p">(</span><span class="nx">n</span> <span class="nx">of</span> <span class="nx">bigGenerator</span><span class="p">()){</span><span class="nx">n</span><span class="o">*</span><span class="nx">n</span><span class="p">;});</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">squared</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>
+</pre></div>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>

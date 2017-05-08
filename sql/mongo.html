@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title> Mongo Query and Write Operation Commands - wiki</title>
+        <meta name="keywords" content="个人wiki"/>
+        <meta name="description" content="个人wiki"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/#sql">sql</a>&nbsp;»&nbsp; Mongo Query and Write Operation Commands</div>
+</div>
+<div class="clearfix"></div>
+<div id="title"> Mongo Query and Write Operation Commands</div>
+  <div id="content">
+  <h3 id="find-selects-documents-in-a-collection">find     Selects documents in a collection.</h3>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<div class="hlcode"><pre><span class="p">{</span>
+    <span class="s2">&quot;find&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;hint&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span> <span class="ow">or</span> <span class="kt">string</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;batchSize&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;singleBatch&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;comment&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;maxScan&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;maxTimeMS&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;readConcern&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;returnKey&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;showRecordId&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;snapshot&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;tailable&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;oplogReplay&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;noCursorTimeout&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;awaitData&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;allowPartialResults&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<blockquote>
+<p>Examples</p>
+</blockquote>
+<h5 id="specify-a-sort-and-limit">Specify a Sort and Limit</h5>
+<div class="hlcode"><pre><span class="n">db</span><span class="p">.</span><span class="n">runCommand</span><span class="p">(</span>
+    <span class="p">{</span>
+             <span class="nl">find:</span> <span class="s">&quot;restaurants&quot;</span><span class="p">,</span>
+             <span class="nl">filter:</span> <span class="p">{</span> <span class="n">rating</span><span class="o">:</span> <span class="p">{</span> <span class="err">$</span><span class="n">gte</span><span class="o">:</span> <span class="mi">9</span> <span class="p">},</span> <span class="n">cuisine</span><span class="o">:</span> <span class="s">&quot;italian&quot;</span> <span class="p">},</span>
+             <span class="nl">projection:</span> <span class="p">{</span> <span class="n">name</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rating</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">address</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+             <span class="nl">sort:</span> <span class="p">{</span> <span class="n">name</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+             <span class="nl">limit:</span> <span class="mi">5</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h5 id="override-default-read-concern">Override Default Read Concern</h5>
+<div class="hlcode"><pre><span class="n">db</span><span class="p">.</span><span class="n">runCommand</span><span class="p">(</span>
+    <span class="p">{</span>
+         <span class="nl">find:</span> <span class="s">&quot;restaurants&quot;</span><span class="p">,</span>
+         <span class="nl">filter:</span> <span class="p">{</span> <span class="n">rating</span><span class="o">:</span> <span class="p">{</span> <span class="err">$</span><span class="n">lt</span><span class="o">:</span> <span class="mi">5</span> <span class="p">}</span> <span class="p">},</span>
+         <span class="nl">readConcern:</span> <span class="p">{</span> <span class="n">level</span><span class="o">:</span> <span class="s">&quot;majority&quot;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h3 id="insert-inserts-one-or-more-documents">insert   Inserts one or more documents.</h3>
+<h3 id="update-updates-one-or-more-documents">update  Updates one or more documents.</h3>
+<h2 id="delete-deletes-one-or-more-documents">delete  Deletes one or more documents.</h2>
+<h3 id="findandmodify-modifies-and-returns-a-single-document">findAndModify  modifies and returns a single document.</h3>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<div class="hlcode"><pre><span class="p">{</span>
+    <span class="nx">findAndModify</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">collection</span><span class="na">-name</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">query</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nb">sort</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nb">remove</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">boolean</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">update</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nb">new</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">boolean</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">fields</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">upsert</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">boolean</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">bypassDocumentValidation</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">boolean</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">writeConcern</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">document</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<blockquote>
+<p>Output  reutrns a document with the folloings fields:</p>
+</blockquote>
+<div class="hlcode"><pre><span class="n">value</span>                 <span class="n">document</span>
+<span class="n">lastErrorObject</span> <span class="n">document</span>
+<span class="n">ok</span>                      <span class="n">number</span>
+</pre></div>
+
+
+<blockquote>
+<p>Behavior</p>
+</blockquote>
+<h6 id="upsert-and-unique-index">Upsert and Unique Index</h6>
+<div class="hlcode"><pre><span class="n">db</span><span class="p">.</span><span class="n">runCommand</span><span class="p">(</span>
+    <span class="p">{</span>
+         <span class="nl">findAndModify:</span> <span class="s">&quot;people&quot;</span><span class="p">,</span>
+         <span class="nl">query:</span> <span class="p">{</span> <span class="n">name</span><span class="o">:</span> <span class="s">&quot;Andy&quot;</span> <span class="p">},</span>
+         <span class="nl">sort:</span> <span class="p">{</span> <span class="n">rating</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+         <span class="nl">update:</span> <span class="p">{</span> <span class="err">$</span><span class="n">inc</span><span class="o">:</span> <span class="p">{</span> <span class="n">score</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">},</span>
+         <span class="nl">upsert:</span> <span class="nb">true</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<blockquote>
+<p>Examples</p>
+</blockquote>
+<h6 id="update-and-return">Update and Return</h6>
+<div class="hlcode"><pre><span class="n">db</span><span class="p">.</span><span class="n">runCommand</span><span class="p">(</span>
+    <span class="p">{</span>
+         <span class="nl">findAndModify:</span> <span class="s">&quot;people&quot;</span><span class="p">,</span>
+         <span class="nl">query:</span> <span class="p">{</span> <span class="n">name</span><span class="o">:</span> <span class="s">&quot;Tom&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">:</span> <span class="s">&quot;active&quot;</span><span class="p">,</span> <span class="n">rating</span><span class="o">:</span> <span class="p">{</span> <span class="err">$</span><span class="n">gt</span><span class="o">:</span> <span class="mi">10</span> <span class="p">}</span> <span class="p">},</span>
+         <span class="nl">sort:</span> <span class="p">{</span> <span class="n">rating</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+         <span class="nl">update:</span> <span class="p">{</span> <span class="err">$</span><span class="n">inc</span><span class="o">:</span> <span class="p">{</span> <span class="n">score</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h6 id="upsert-true-the-update-operation-to-either-update-a-matching-document-or-if-no-matching-document-exists-create-a-new-document">upsert: true    the update operation to either update a matching document or, if no matching document exists, create a new document.</h6>
+<div class="hlcode"><pre><span class="n">db</span><span class="p">.</span><span class="n">runCommand</span><span class="p">(</span>
+       <span class="p">{</span>
+             <span class="nl">findAndModify:</span> <span class="s">&quot;people&quot;</span><span class="p">,</span>
+             <span class="nl">query:</span> <span class="p">{</span> <span class="n">name</span><span class="o">:</span> <span class="s">&quot;Gus&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">:</span> <span class="s">&quot;active&quot;</span><span class="p">,</span> <span class="n">rating</span><span class="o">:</span> <span class="mi">100</span> <span class="p">},</span>
+             <span class="nl">sort:</span> <span class="p">{</span> <span class="n">rating</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+             <span class="nl">update:</span> <span class="p">{</span> <span class="err">$</span><span class="n">inc</span><span class="o">:</span> <span class="p">{</span> <span class="n">score</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">},</span>
+             <span class="nl">upsert:</span> <span class="nb">true</span>
+       <span class="p">}</span>
+     <span class="p">)</span>
+</pre></div>
+
+
+<h6 id="return-new-document">Return New Document</h6>
+<div class="hlcode"><pre><span class="n">db</span><span class="p">.</span><span class="n">runCommand</span><span class="p">(</span>
+    <span class="p">{</span>
+         <span class="nl">findAndModify:</span> <span class="s">&quot;people&quot;</span><span class="p">,</span>
+         <span class="nl">query:</span> <span class="p">{</span> <span class="n">name</span><span class="o">:</span> <span class="s">&quot;Pascal&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">:</span> <span class="s">&quot;active&quot;</span><span class="p">,</span> <span class="n">rating</span><span class="o">:</span> <span class="mi">25</span> <span class="p">},</span>
+         <span class="nl">sort:</span> <span class="p">{</span> <span class="n">rating</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+         <span class="nl">update:</span> <span class="p">{</span> <span class="err">$</span><span class="n">inc</span><span class="o">:</span> <span class="p">{</span> <span class="n">score</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">},</span>
+         <span class="nl">upsert:</span> <span class="nb">true</span><span class="p">,</span>
+         <span class="nl">new:</span> <span class="nb">true</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h6 id="sort-and-remove">Sort and Remove</h6>
+<div class="hlcode"><pre><span class="n">db</span><span class="p">.</span><span class="n">runCommand</span><span class="p">(</span>
+    <span class="p">{</span>
+         <span class="nl">findAndModify:</span> <span class="s">&quot;people&quot;</span><span class="p">,</span>
+         <span class="nl">query:</span> <span class="p">{</span> <span class="n">state</span><span class="o">:</span> <span class="s">&quot;active&quot;</span> <span class="p">},</span>
+         <span class="nl">sort:</span> <span class="p">{</span> <span class="n">rating</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+         <span class="nl">remove:</span> <span class="nb">true</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h3 id="getmore-returns-batches-of-documents-currently-pointed-to-by-the-cursor">getMore    Returns batches of documents currently pointed to by the cursor.</h3>
+<h3 id="getlasterror-returns-the-success-status-of-the-last-operation">getLastError   Returns the success status of the last operation.</h3>
+<h3 id="getpreverror-returns-status-document-containing-all-errors-since-the-last-reseterror-command">getPrevError    Returns status document containing all errors since the last resetError command.</h3>
+<h3 id="reseterror-resets-the-last-error-status">resetError         Resets the last error status.</h3>
+<p><a href="https://docs.mongodb.com/manual/reference/command/findAndModify/">官方网站</a></p>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2017 feng003.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
